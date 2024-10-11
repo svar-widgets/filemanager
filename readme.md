@@ -1,6 +1,18 @@
-### :star: SVAR FileManager for Svelte
+### :open_file_folder: SVAR FileManager for Svelte
 
-SVAR FileManager provides ready to use control for file uploading
+SVAR File Manager is a file explorer component for Svelte apps. Provides a familiar UI for browsing, organizing and previewing files. Integrate with any backend - local storage, databases, or cloud services.
+
+### :sparkles: Key features:
+- Basic file operations: create, delete, copy, rename, cut, paste
+- Download and upload files
+- Files tree view
+- List and tiles views
+- File preview pane with file information (file size, type, modified date, etc)
+- Split view to manage files between different locations
+- Built-in search box
+- Context menu and toolbar
+- Keyboard navigation
+- Used storage info
 
 ### :link: Useful Links
 
@@ -10,9 +22,9 @@ SVAR FileManager provides ready to use control for file uploading
 
 ### :page_with_curl: License
 
-SVAR FileManager for Svelte is available under MIT license.
+SVAR File Manager for Svelte is available under MIT license.
 
-### How to Use
+### :hammer_and_pick: How to Use
 
 To use the widget, simply import the package and include the component in your Svelte file:
 
@@ -36,14 +48,14 @@ To use the widget, simply import the package and include the component in your S
 <Filemanager {data} drive={getDrive()} />
 ```
 
-### How to Modify
+### :computer: How to Modify
 
 Typically, you don't need to modify the code. However, if you wish to do so, follow these steps:
 
 1. Run `yarn` to install dependencies. Note that this project is a monorepo using `yarn` workspaces, so npm will not work
 2. Start the project in development mode with `yarn start`
 
-### Run Tests
+### :white_check_mark: Run Tests
 
 To run the test:
 
