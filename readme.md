@@ -18,7 +18,12 @@
 
 </div>
 
-SVAR File Manager is a file explorer component for Svelte apps. Provides a familiar UI for browsing, organizing and previewing files. Integrate with any backend - local storage, databases, or cloud services.
+SVAR File Manager is a flexible file explorer component for Svelte apps. It offers a familiar interface for browsing, organizing, and previewing files. Integrate it with any backend, whether you're using local storage, databases, or cloud services.
+
+<div align="center">
+  <img src="https://cdn.svar.dev/public/file-manager-1400.png" alt="SVAR File Manager for Svelte - UI" width="700">
+</div>
+
 
 ### :sparkles: Key features:
 - Basic file operations: create, delete, copy, rename, cut, paste
