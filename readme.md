@@ -1,4 +1,22 @@
-### :open_file_folder: SVAR File Manager for Svelte
+<div align="center">
+	
+# SVAR Svelte File Manager | File Explorer
+
+</div>
+
+<div align="center">
+
+:globe_with_meridians: [Website](https://svar.dev/svelte/filemanager/) • :bulb: [Getting Started](https://docs.svar.dev/svelte/filemanager/getting_started/) • :eyes: [Demos](https://docs.svar.dev/svelte/filemanager/samples/#/base/willow)
+
+</div>
+
+<div align="center">
+
+[![npm](https://img.shields.io/npm/v/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+[![License](https://img.shields.io/github/license/svar-widgets/filemanager)](https://github.com/svar-widgets/filemanager/blob/main/license.txt)
+[![npm downloads](https://img.shields.io/npm/dm/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+
+</div>
 
 SVAR File Manager is a file explorer component for Svelte apps. Provides a familiar UI for browsing, organizing and previewing files. Integrate with any backend - local storage, databases, or cloud services.
 
@@ -13,16 +31,6 @@ SVAR File Manager is a file explorer component for Svelte apps. Provides a famil
 - Context menu and toolbar
 - Keyboard navigation
 - Used storage info
-
-### :link: Useful Links
-
--   [Documentation](https://docs.svar.dev/svelte/filemanager/overview)
--   [How to start guide](https://docs.svar.dev/svelte/filemanager/getting_started/)
--   [Demos](https://docs.svar.dev/svelte/filemanager/samples/#/base/willow)
-
-### :page_with_curl: License
-
-SVAR File Manager for Svelte is available under MIT license.
 
 ### :hammer_and_pick: How to Use
 
@@ -67,3 +75,8 @@ To run the test:
     ```sh
     yarn test:cypress
     ```
+
+### :speech_balloon: Need Help?
+
+[Post an Issue](https://github.com/svar-widgets/filemanager/issues/) or use our [community forum](https://forum.svar.dev). 
+
