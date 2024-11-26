@@ -24,6 +24,24 @@ SVAR File Manager is a flexible file explorer component for Svelte apps. It offe
   <img src="https://cdn.svar.dev/public/file-manager-1400.png" alt="SVAR File Manager for Svelte - UI" width="700">
 </div>
 
+### Versions for Svelte 4 and 5
+
+There are two versions of SVAR File Manager: 
+- version **1.x** was designed to work with Svelte 4
+- version **2.x** is created for Svelte 5 (please note that this version is in beta and may contain some instabilities)
+
+To use the SVAR File Manager v.2.0 beta for Svelte 5, install it as follows:
+
+```
+npm install wx-svelte-filemanager
+```
+
+To use the SVAR File Manager for Svelte 4:
+
+```
+npm install wx-svelte-filemanager@1.3.0
+```
+
 
 ### :sparkles: Key features:
 - Basic file operations: create, delete, copy, rename, cut, paste
