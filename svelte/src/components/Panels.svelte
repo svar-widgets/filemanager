@@ -8,7 +8,6 @@
 	function toggleActive(panel) {
 		api.exec("set-active-panel", { panel });
 	}
-
 </script>
 
 <div class="wx-panels" data-id="body">
@@ -16,15 +15,17 @@
 		<TableView
 			panel={0}
 			active={$activePanel == 0}
-			on:click={() => toggleActive(0)}
-			on:contextmenu={() => toggleActive(0)} />
+			onclick={() => toggleActive(0)}
+			oncontextmenu={() => toggleActive(0)}
+		/>
 	</div>
 	<div class="wx-item" data-panel={1}>
 		<TableView
 			panel={1}
 			active={$activePanel == 1}
-			on:click={() => toggleActive(1)}
-			on:contextmenu={() => toggleActive(1)} />
+			onclick={() => toggleActive(1)}
+			oncontextmenu={() => toggleActive(1)}
+		/>
 	</div>
 </div>
 
@@ -43,5 +44,4 @@
 	.wx-item:first-child {
 		margin-right: 10px;
 	}
-
 </style>

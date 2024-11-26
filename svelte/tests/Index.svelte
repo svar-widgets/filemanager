@@ -10,7 +10,7 @@
 	import { Globals, Locale, popupContainer } from "wx-svelte-core";
 
 	const defRoute = links[0][0].replace(/\/:skin$/, "/willow");
-	const routes = {
+	const routes = $state({
 		"/": wrap({
 			component: {},
 			conditions: () => {
@@ -18,9 +18,9 @@
 				return false;
 			},
 		}),
-	};
+	});
 
-	let skin = "willow";
+	let skin = $state("willow");
 	let skinSettings = {};
 	let skins = [
 		{

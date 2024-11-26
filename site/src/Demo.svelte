@@ -9,7 +9,7 @@
 	} from "wx-svelte-core";
 	import CustomFileManager from "./CustomFileManager.svelte";
 
-	let skin = "willow";
+	let skin = $state("willow");
 </script>
 
 <Willow />

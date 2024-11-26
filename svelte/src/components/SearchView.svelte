@@ -7,14 +7,13 @@
 	const api = getContext("filemanager-store");
 
 	let { panels, activePanel } = api.getReactiveState();
-	$: crumbs = $panels[$activePanel]._crumbs;
+	let crumbs = $derived($panels[$activePanel]._crumbs);
 
 	function clearSearch() {
 		api.exec("filter-files", {
 			text: "",
 		});
 	}
-
 </script>
 
 <div class="wx-search">
@@ -23,10 +22,10 @@
 			<Icon name="angle-left" click={clearSearch} />
 		</div>
 		<div class="wx-text">
-			{_('Search results in')}
+			{_("Search results in")}
 			{#each crumbs as crumb, i}
 				{#if i}/{/if}
-				{crumb.id == '/' ? _(crumb.name) : crumb.name}
+				{crumb.id == "/" ? _(crumb.name) : crumb.name}
 			{/each}
 		</div>
 	</div>
@@ -62,5 +61,4 @@
 	.wx-back-icon {
 		margin-right: 4px;
 	}
-
 </style>

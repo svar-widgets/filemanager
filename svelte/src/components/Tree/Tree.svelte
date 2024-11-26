@@ -7,9 +7,9 @@
 
 	const api = getContext("filemanager-store");
 	const { tree: data, panels, activePanel } = api.getReactiveState();
-	$: ({ _crumbs: crumbs } = $panels[$activePanel]);
 
-	$: root = $data.byId(0).data;
+	const crumbs = $derived($panels[$activePanel]._crumbs);
+	let root = $derived($data.byId(0).data);
 
 	function toggle(id) {
 		api.exec("open-tree-folder", {
@@ -26,12 +26,11 @@
 			...(selectedId && { selected: [selectedId] }),
 		});
 	}
-
 </script>
 
 <ul use:delegateClick={{ click, toggle }}>
 	{#each root as folder (folder.id)}
-		{#if folder.type === 'folder'}
+		{#if folder.type === "folder"}
 			<Folder {folder} />
 		{/if}
 	{/each}
@@ -45,5 +44,4 @@
 		min-width: 100%;
 		width: fit-content;
 	}
-
 </style>

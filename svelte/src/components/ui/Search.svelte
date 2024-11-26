@@ -1,32 +1,37 @@
 <script>
-	import { createEventDispatcher, getContext } from "svelte";
+	import { getContext } from "svelte";
 
-	export let value = "";
+	let { value = "", onsearch } = $props();
 
-	const dispatch = createEventDispatcher();
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 
-	let node;
+	let node = null;
+	let icon = $derived(value !== "" ? "wxi-close" : "wxi-search");
 
-	$: icon = value !== "" ? "wxi-close" : "wxi-search";
-	$: dispatch("search", { value });
+	function oninput(e) {
+		value = e.target.value;
+		onsearch && onsearch({ value });
+	}
 
 	function clear() {
 		value = "";
 		node.focus();
-		dispatch("search", { value });
+		onsearch && onsearch({ value });
 	}
-
 </script>
 
 <div class="wx-search-input">
-	<i class="wx-icon {icon}" on:click={clear} />
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<i class="wx-icon {icon}" onclick={clear}></i>
 	<input
 		type="text"
 		class="wx-text"
 		bind:this={node}
-		bind:value
-		placeholder={_('Search')} />
+		{value}
+		{oninput}
+		placeholder={_("Search")}
+	/>
 </div>
 
 <style>
@@ -68,5 +73,4 @@
 	.wx-text:focus {
 		border: 1px solid var(--wx-color-primary);
 	}
-
 </style>

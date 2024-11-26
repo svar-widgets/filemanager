@@ -184,7 +184,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 	private handleNonUniqueNames(serverIds: TID[], localIds: TID[]) {
 		localIds.forEach((id: TID, i: number) => {
 			if (id !== serverIds[i])
-				this.exec("file-renamed", {
+				(this as any).exec("file-renamed", {
 					id,
 					newId: serverIds[i],
 				});

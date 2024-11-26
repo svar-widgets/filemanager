@@ -1,16 +1,15 @@
 <script>
-	import { createEventDispatcher, getContext } from "svelte";
+	import { getContext } from "svelte";
 	import { Segmented, TwoState } from "wx-svelte-core";
 	import Search from "./ui/Search.svelte";
 	import Icon from "./ui/Icon.svelte";
 
-	export let narrowMode = false;
+	let { narrowMode = false, onshowtree } = $props();
 
 	const api = getContext("filemanager-store");
 
 	const { mode, preview: info, search: searchValue } = api.getReactiveState();
 
-	const dispatch = createEventDispatcher();
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 
 	const options = [
@@ -19,48 +18,40 @@
 		{ icon: "wxi-view-column", id: "panels" },
 	];
 
-	$: segmentedValue = $mode;
-
-	function changeMode(e) {
-		const nmode = e.detail.id;
-		api.exec("set-mode", { mode: nmode });
-		if ($mode !== nmode) segmentedValue = $mode;
+	function changeMode({ id }) {
+		api.exec("set-mode", { mode: id });
 	}
 	function toggleInfo(e) {
 		e.preventDefault();
 		api.exec("show-preview", { mode: !$info });
 	}
 	function search(e) {
-		api.exec("filter-files", { text: e.detail.value });
+		api.exec("filter-files", { text: e.value });
 	}
-
 </script>
 
 <div class="wx-toolbar">
 	<div class="wx-left {narrowMode ? 'wx-left-narrow' : ''}">
 		{#if !narrowMode}
-			<div class="wx-name">{_('Files')}</div>
-		{:else if !($mode == 'panels' || $mode == 'search')}
+			<div class="wx-name">{_("Files")}</div>
+		{:else if !($mode == "panels" || $mode == "search")}
 			<div class="wx-sidebar-icon" data-id="toggle-tree">
-				<Icon click={() => dispatch('show-tree')} name="subtask" />
+				<Icon click={() => onshowtree && onshowtree()} name="subtask" />
 			</div>
 		{/if}
-		<Search on:search={search} value={$searchValue} />
+		<Search onsearch={search} value={$searchValue} />
 	</div>
 
 	<div class="wx-right">
 		{#if !narrowMode}
 			<div class="wx-preview-icon">
 				<TwoState click={toggleInfo} value={$info}>
-					<i class="wxi-eye" />
+					<i class="wxi-eye"></i>
 				</TwoState>
 			</div>
 		{/if}
 		<div class="wx-modes">
-			<Segmented
-				bind:value={segmentedValue}
-				{options}
-				on:select={changeMode} />
+			<Segmented value={$mode} {options} onchange={changeMode} />
 		</div>
 	</div>
 </div>
@@ -141,5 +132,4 @@
 		--wx-segmented-border-radius: 6px;
 		--wx-segmented-border: none;
 	}
-
 </style>

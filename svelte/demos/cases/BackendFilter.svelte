@@ -41,12 +41,20 @@
 	}
 
 	let fmApi;
-	let rawData = [];
-	let drive;
+	let rawData = $state([]);
+	let drive = $state({});
+
+	Promise.all([
+		fetch(server + "/files").then(data => data.json()),
+		fetch(server + "/info").then(data => data.json()),
+	]).then(([files, info]) => {
+		rawData = parseDates(files);
+		drive = info;
+	});
 
 	//dynamic loading
 	function loadData(ev) {
-		const id = ev.detail.id;
+		const id = ev.id;
 		fetch(server + "/files/" + encodeURIComponent(id))
 			.then(data => data.json())
 			.then(data => {
@@ -58,17 +66,6 @@
 					});
 				}, 500);
 			});
-	}
-
-	$: {
-		//load initial data
-		Promise.all([
-			fetch(server + "/files").then(data => data.json()),
-			fetch(server + "/info").then(data => data.json()),
-		]).then(([files, info]) => {
-			rawData = parseDates(files);
-			drive = info;
-		});
 	}
 
 	function init(api) {
@@ -110,5 +107,5 @@
 	{drive}
 	icons={iconsURL}
 	previews={previewURL}
-	on:request-data={loadData}
+	onrequestdata={loadData}
 />

@@ -1,13 +1,14 @@
 {
 	"name": "wx-svelte-filemanager",
-	"version": "1.3.0",
+	"version": "2.0.0-beta-2",
+	"description": "Easy-to-use Svelte component for adding a file manager (file explorer) UI",
 	"productTag": "filemanager",
 	"needsTrial": true,
 	"type": "module",
 	"scripts": {
 		"build": "vite build",
 		"build:tests": "vite build --mode test",
-		"lint": "yarn eslint ./demos ./src --ext .svelte,.ts,.js",
+		"lint": "yarn eslint ./demos ./src",
 		"start": "vite --open",
 		"start:tests": "vite --open=/tests/ --mode test --host 0.0.0.0  --port 5100",
 		"test": "true",
@@ -30,21 +31,33 @@
 	},
 	"homepage": "https://svar.dev/svelte/filemanager/",
 	"dependencies": {
-		"wx-filemanager-data-provider": "1.3.0",
-		"wx-filemanager-locales": "1.3.0",
-		"wx-filemanager-store": "1.3.0",
+		"wx-filemanager-data-provider": "2.0.0-beta-2",
+		"wx-filemanager-locales": "2.0.0-beta-2",
+		"wx-filemanager-store": "2.0.0-beta-2",
 		"wx-lib-dom": "0.6.0",
 		"wx-lib-state": "1.9.0",
 		"wx-lib-svelte": "0.4.0",
-		"wx-svelte-core": "1.3.0",
-		"wx-svelte-menu": "1.3.0",
-		"wx-svelte-grid": "1.3.0",
-		"wx-svelte-uploader": "1.3.0"
+		"wx-svelte-core": "2.0.0-beta-2",
+		"wx-svelte-menu": "2.0.0-beta-2",
+		"wx-svelte-grid": "2.0.0-beta-2",
+		"wx-svelte-uploader": "2.0.0-beta-2"
 	},
 	"files": [
 		"src",
 		"readme.md",
 		"whatsnew.md",
 		"license.txt"
+	],
+	"keywords": [
+		"svelte",
+		"file manager",
+		"file-manager",
+		"file-explorer",
+		"file explorer",
+		"file browser",
+		"svelte component",
+		"ui component",
+		"svelte file manager",
+		"svar widgets"
 	]
 }

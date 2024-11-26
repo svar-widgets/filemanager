@@ -1,6 +1,6 @@
 {
 	"name": "wx-filemanager-data-provider",
-	"version": "1.3.0",
+	"version": "2.0.0-beta-2",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -8,7 +8,7 @@
 	"scripts": {
 		"build": "yarn tsc --preserveWatchOutput",
 		"watch": "yarn tsc -w --preserveWatchOutput",
-		"lint": "yarn eslint ./src --ext .ts,.js",
+		"lint": "yarn eslint ./src",
 		"test": "vitest --run"
 	},
 	"files": [

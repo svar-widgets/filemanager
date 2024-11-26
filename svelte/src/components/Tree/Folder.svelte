@@ -1,50 +1,41 @@
 <script>
+	import Folder from "./Folder.svelte";
 	import { getContext } from "svelte";
 
 	const api = getContext("filemanager-store");
 	const { panels, activePanel } = api.getReactiveState();
 
-	$: path = $panels[$activePanel].path;
+	let path = $derived($panels[$activePanel].path);
 
-	export let folderIcon = false;
-	export let folder = {};
+	let { folderIcon = false, folder = {} } = $props();
 
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 
-	let open, data, name, id, padding, hasFolders;
-	$: {
-		open = folder.open;
-		data = folder.data;
-		hasFolders = false;
-		if (data?.find(i => i.type === "folder")) {
-			hasFolders = true;
-		}
-		name = folder.id == "/" ? _(folder.name) : folder.name;
-		id = folder.id;
-		padding = folder.$level > 1 ? (folder.$level - 1) * 20 : 0;
-	}
+	const hasFolders = $derived(!!folder.data?.find(i => i.type === "folder"));
+	const name = $derived(folder.id == "/" ? _(folder.name) : folder.name);
+	const padding = $derived(folder.$level > 1 ? (folder.$level - 1) * 20 : 0);
 </script>
 
 <li
 	data-id={folder.id}
 	class="wx-folder"
-	class:wx-selected={path === id}
+	class:wx-selected={path === folder.id}
 	style="padding-left: {padding}px"
 >
 	{#if hasFolders}
 		<i
 			class="wx-toggle wxi-{open ? 'angle-down' : 'angle-right'}"
 			data-action="toggle"
-		/>
-	{:else}<span class="wx-toggle-placeholder" />{/if}
-	<i class={folderIcon || "wxi-folder"} />
+		></i>
+	{:else}<span class="wx-toggle-placeholder"></span>{/if}
+	<i class={folderIcon || "wxi-folder"}></i>
 	<span class="wx-name"> {name} </span>
 </li>
 
-{#if open && data && data.length && hasFolders}
-	{#each data as folder (folder.id)}
+{#if open && folder.data && folder.data.length && hasFolders}
+	{#each folder.data as folder (folder.id)}
 		{#if folder.type === "folder"}
-			<svelte:self {folder} />
+			<Folder {folder} />
 		{/if}
 	{/each}
 {/if}

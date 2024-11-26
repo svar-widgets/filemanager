@@ -6,10 +6,10 @@
 
 	import ThemeSelect from "./ThemeSelect.svelte";
 
-	export let skin;
+	let { skin = $bindable() } = $props();
 
 	function selectSkin(ev) {
-		skin = ev.detail.selected.id;
+		skin = ev.selected.id;
 	}
 
 	const server = "https://master--svar-filemanager-go--dev.webix.io";
@@ -72,7 +72,7 @@
 
 	// dynamic loading
 	function loadData(ev) {
-		const id = ev.detail.id;
+		const id = ev.id;
 		fetch(server + "/files/" + encodeURIComponent(id))
 			.then(data => data.json())
 			.then(data => {
@@ -86,18 +86,9 @@
 			});
 	}
 
-	let rawData = [];
-	let drive;
+	let rawData = $state([]);
+	let drive = $derived({});
 	// load initial data
-	$: {
-		Promise.all([
-			fetch(server + "/files").then(data => data.json()),
-			fetch(server + "/info").then(data => data.json()),
-		]).then(([files, info]) => {
-			rawData = parseDates(files);
-			drive = info;
-		});
-	}
 
 	function init(api) {
 		api.on("download-file", ({ id }) => {
@@ -116,7 +107,7 @@
 	<div class="toolbar">
 		<div class="control">
 			<span>Theme</span>
-			<ThemeSelect bind:value={skin} on:select={selectSkin}></ThemeSelect>
+			<ThemeSelect bind:value={skin} onselect={selectSkin}></ThemeSelect>
 		</div>
 	</div>
 	<div class="bottom">
@@ -127,7 +118,7 @@
 			icons={iconsURL}
 			previews={previewURL}
 			extraInfo={requestInfo}
-			on:request-data={loadData}
+			onrequestdata={loadData}
 		/>
 	</div>
 </div>

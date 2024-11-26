@@ -3,6 +3,8 @@
 	import { apiKey } from "wx-svelte-uploader";
 	import { locateAttr } from "wx-lib-dom";
 
+	let { children } = $props();
+
 	const api = getContext("filemanager-store");
 	const activePanel = api.getReactiveState().activePanel;
 
@@ -21,7 +23,7 @@
 		dragLeave: () => self.classList.toggle("wx-active"),
 	};
 
-	let self;
+	let self = $state();
 </script>
 
 <div
@@ -30,7 +32,7 @@
 	bind:this={self}
 	use:uploaderApi.droparea={{ ...apiSettings }}
 >
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>

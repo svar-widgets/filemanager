@@ -8,8 +8,7 @@
 	import NameCell from "./NameCell.svelte";
 	import UploadDropArea from "../UploadDropArea.svelte";
 
-	export let panel;
-	export let active = false;
+	let { panel, active = false, onclick, oncontextmenu } = $props();
 
 	const api = getContext("filemanager-store");
 
@@ -18,16 +17,15 @@
 	const format = dateToString("%d %M %Y", locale.getRaw().calendar);
 
 	let { panels } = api.getReactiveState();
-	$: ({
-		selected: selection,
-		path,
-		_files: files,
-		_crumbs: crumbs,
-		_sorts: sorts,
-		_selectNavigation: selectNavigation,
-	} = $panels[panel]);
 
-	let columns = [
+	const selection = $derived($panels[panel].selected);
+	const path = $derived($panels[panel].path);
+	const crumbs = $derived($panels[panel]._crumbs);
+	const sorts = $derived($panels[panel]._sorts);
+	const selectNavigation = $derived($panels[panel]._selectNavigation);
+	const files = $derived($panels[panel]._files);
+
+	const defaultColumns = [
 		{
 			id: "name",
 			header: _("Name"),
@@ -54,22 +52,22 @@
 		},
 	];
 
-	$: {
+	const columns = $derived.by(() => {
 		const { key, order } = sorts[path] || {};
 		// to mark sorted column with relevant icon
-		columns = columns.map(col => {
+		return defaultColumns.map(col => {
 			col.$sort = order && col.id === key ? { order } : null;
 			return col;
 		});
-	}
+	});
 
 	let sortClick = null;
 	let resizeClick = null;
-	let tableSelection = [];
-	$: {
-		if (selectNavigation) tableSelection = ["/wx-filemanager-parent-link"];
-		else tableSelection = [...selection];
-	}
+
+	const tableSelection = $derived(
+		selectNavigation ? ["/wx-filemanager-parent-link"] : [...selection]
+	);
+
 	function click(id, e) {
 		//[FIXME] grip is wx-table classname which may change
 		if (e && e.target.className.indexOf("grip") !== -1) return;
@@ -159,7 +157,7 @@
 		api.intercept("hotkey", () => false);
 	}
 
-	$: renderedFiles =
+	let renderedFiles = $derived(
 		path !== "/"
 			? [
 					{
@@ -168,10 +166,13 @@
 					},
 					...files,
 				]
-			: files;
+			: files
+	);
 </script>
 
-<div on:click on:contextmenu class="wx-wrapper">
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div {onclick} {oncontextmenu} class="wx-wrapper">
 	<Breadcrumbs {panel} />
 	<div
 		data-id="body"

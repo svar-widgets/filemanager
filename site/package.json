@@ -1,14 +1,14 @@
 {
 	"name": "wx-site-svelte-filemanager",
-	"version": "1.3.0",
+	"version": "2.0.0-beta-2",
 	"type": "module",
 	"scripts": {
 		"build": "vite build",
-		"lint": "yarn eslint ./src --ext .svelte,.ts,.js",
+		"lint": "yarn eslint ./src",
 		"start": "yarn vite --open"
 	},
 	"license": "MIT",
 	"dependencies": {
-		"wx-svelte-core": "*"
+		"wx-svelte-core": "2.0.0-beta-2"
 	}
 }

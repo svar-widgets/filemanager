@@ -4,13 +4,14 @@
 	import { getSelectionOnNavigation } from "wx-filemanager-store";
 	import Icon from "./ui/Icon.svelte";
 
-	export let panel;
+	let { panel } = $props();
 
 	const api = getContext("filemanager-store");
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 
 	const { panels } = api.getReactiveState();
-	$: ({ _files: files, _crumbs: crumbs } = $panels[panel]);
+	const files = $derived($panels[panel]._files);
+	const crumbs = $derived($panels[panel]._crumbs);
 
 	function click(id) {
 		const selectedId = getSelectionOnNavigation(id, crumbs);
@@ -21,21 +22,20 @@
 		});
 	}
 
-	let loading;
+	let loading = $state(files ? null : true);
 	function refresh() {
 		const id = crumbs[crumbs.length - 1].id;
-		loading = true;
+		// loading = true;
 
 		api.exec("request-data", { id });
 	}
-	$: if (files) loading = null;
-
 </script>
 
 <div
 	class="wx-breadcrumbs"
 	use:delegateClick={{ click }}
-	data-menu-ignore="true">
+	data-menu-ignore="true"
+>
 	<div class="wx-refresh-icon">
 		<Icon name="refresh" spin={!!loading} click={refresh} />
 	</div>
@@ -44,7 +44,7 @@
 			<Icon name="angle-right" />
 		{/if}
 		<div class="wx-item" data-id={crumb.id} data-menu-ignore="true">
-			{crumb.id == '/' ? _(crumb.name) : crumb.name}
+			{crumb.id == "/" ? _(crumb.name) : crumb.name}
 		</div>
 	{/each}
 </div>
@@ -78,5 +78,4 @@
 	.wx-item:hover {
 		color: var(--wx-color-primary);
 	}
-
 </style>
