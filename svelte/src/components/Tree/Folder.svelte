@@ -14,6 +14,7 @@
 	const hasFolders = $derived(!!folder.data?.find(i => i.type === "folder"));
 	const name = $derived(folder.id == "/" ? _(folder.name) : folder.name);
 	const padding = $derived(folder.$level > 1 ? (folder.$level - 1) * 20 : 0);
+	const open = $derived(folder.open !== false);
 </script>
 
 <li
