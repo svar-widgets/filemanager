@@ -7,22 +7,19 @@
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 
 	let { panels, activePanel, mode } = api.getReactiveState();
-	let files;
 
-	$: ({
-		selected: selection,
-		path,
-		_crumbs: crumbs,
-		_files: files,
-		_selectNavigation: selectNavigation,
-	} = $panels[$activePanel]);
+	const files = $derived($panels[$activePanel]._files);
+	const selected = $derived($panels[$activePanel].selected);
+	const path = $derived($panels[$activePanel].path);
+	const crumbs = $derived($panels[$activePanel]._crumbs);
+	const selectNavigation = $derived($panels[$activePanel]._selectNavigation);
 
 	function click(id, e) {
 		const ctrl = e && (e.ctrlKey || e.metaKey);
 		const shift = e && e.shiftKey;
 
 		if (id === "/wx-filemanager-parent-link") {
-			if (selection.length && (ctrl || shift)) return;
+			if (selected.length && (ctrl || shift)) return;
 			api.exec("select-file", {
 				type: "navigation",
 			});
@@ -81,14 +78,14 @@
 
 	function applySelection(id, ev) {
 		if (
-			!selection?.length ||
-			!selection.filter(i => i?.id === id).length > 0
+			!selected?.length ||
+			!selected.filter(i => i?.id === id).length > 0
 		) {
 			click(id, ev);
 		}
 	}
 
-	$: renderedFiles =
+	let renderedFiles = $derived(
 		path !== "/"
 			? [
 					{
@@ -97,22 +94,24 @@
 						navigation: selectNavigation,
 					},
 					...files,
-			  ]
-			: files;
-
+				]
+			: files
+	);
 </script>
 
-{#if $mode == 'search' && !renderedFiles.length}
+{#if $mode == "search" && !renderedFiles.length}
 	<div class="wx-not-found">
-		<div class="wx-not-found-text">{_('Looks like nothing is here')}</div>
+		<div class="wx-not-found-text">{_("Looks like nothing is here")}</div>
 	</div>
 {:else}
+	<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 	<div
 		tabindex="0"
 		class="wx-cards"
-		class:wx-has-back-link={path !== '/' && $mode !== 'search'}
-		data-id={'body'}
-		use:delegateClick={{ click, dblclick, context: applySelection }}>
+		class:wx-has-back-link={path !== "/" && $mode !== "search"}
+		data-id={"body"}
+		use:delegateClick={{ click, dblclick, context: applySelection }}
+	>
 		{#each renderedFiles as child}
 			<Item item={child} />
 		{/each}
@@ -147,5 +146,4 @@
 		gap: 5px;
 		height: 100%;
 	}
-
 </style>

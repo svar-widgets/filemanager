@@ -48,8 +48,8 @@
 	const restProvider = new RestDataProvider(server); // init provider
 	let fmApi;
 
-	$: data = [];
-	$: drive = {};
+	let data = $state([]);
+	let drive = $state({});
 
 	function init(api) {
 		fmApi = api;
@@ -79,7 +79,7 @@
 	);
 	// dynamic loading
 	function loadData(ev) {
-		const id = ev.detail.id;
+		const id = ev.id;
 		restProvider.loadFiles(id).then(files => {
 			fmApi.exec("provide-data", {
 				id,
@@ -96,5 +96,5 @@
 	icons={iconsURL}
 	previews={previewURL}
 	extraInfo={requestInfo}
-	on:request-data={loadData}
+	onrequestdata={loadData}
 />

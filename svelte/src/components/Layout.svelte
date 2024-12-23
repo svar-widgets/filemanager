@@ -14,14 +14,12 @@
 	import TableView from "./Table/View.svelte";
 	import CardsView from "./Cards/View.svelte";
 
-	export let readonly = false;
-	export let menuOptions;
-	export let extraInfo;
+	let { readonly = false, menuOptions, extraInfo } = $props();
 
-	let sidebarWidth;
+	let sidebarWidth = $state();
 
-	let narrowMode;
-	let showSidebar = false;
+	let narrowMode = $state();
+	let showSidebar = $state(false);
 
 	function resize(node) {
 		const ro = new ResizeObserver(entries => {
@@ -51,9 +49,9 @@
 		panels: rPanels,
 	} = api.getReactiveState();
 
-	$: ({ selected, path } = $rPanels[$rActivePanel]);
-
-	let contextMenuOptions = [];
+	const selected = $derived($rPanels[$rActivePanel].selected);
+	const path = $derived($rPanels[$rActivePanel].path);
+	let contextMenuOptions = $state([]);
 
 	const previewOption = {
 		icon: "wxi-eye",
@@ -130,7 +128,7 @@
 
 	let copy = null;
 	function handleMenu(e) {
-		const { action, context } = e.detail;
+		const { action, context } = e;
 		if (action) {
 			performAction(action.id, context, !action.hotkey);
 		}
@@ -210,19 +208,19 @@
 			<Info {narrowMode} {extraInfo} />
 		</div>
 	{:else}
-		<Toolbar {narrowMode} on:show-tree={toggleSidebar} />
+		<Toolbar {narrowMode} onshowtree={toggleSidebar} />
 		<ContextMenu
 			dataKey={"id"}
 			at={"point"}
 			options={contextMenuOptions}
 			resolver={resolveContext}
-			on:click={handleMenu}
+			onclick={handleMenu}
 		>
 			<ActionMenu
 				dataKey="actionId"
 				options={contextMenuOptions}
 				resolver={resolveContext}
-				on:click={handleMenu}
+				onclick={handleMenu}
 			>
 				<Uploader apiOnly={true} uploadURL={handleUpload}>
 					<div class="wx-content-wrapper wx-flex">

@@ -5,9 +5,14 @@
 	import { links } from "../demos/routes.js";
 	import { links as localLinks } from "./routes.js";
 
-	import { Material, Willow, WillowDark } from "../src/";
-
-	import { Globals, Locale, popupContainer } from "wx-svelte-core";
+	import {
+		Material,
+		Willow,
+		WillowDark,
+		Globals,
+		Locale,
+		popupContainer,
+	} from "wx-svelte-core";
 
 	const defRoute = links[0][0].replace(/\/:skin$/, "/willow");
 	const routes = {
@@ -20,29 +25,9 @@
 		}),
 	};
 
-	let skin = "willow";
-	let skinSettings = {};
-	let skins = [
-		{
-			id: "material",
-			name: "Material",
-		},
-		{
-			id: "willow",
-			name: "Willow",
-		},
-		{
-			id: "willow-dark",
-			name: "Dark",
-		},
-	];
-
+	let skin = $state("willow");
 	function onRouteChange(path) {
 		const parts = path.split("/");
-		Object.assign(
-			skinSettings,
-			(skins.find(a => a.id === parts[2]) || {}).props
-		);
 		skin = parts[2];
 	}
 
@@ -52,7 +37,6 @@
 		routes[path] = wrap({
 			component,
 			userData: a,
-			props: { skinSettings },
 			conditions: x => {
 				onRouteChange(x.location);
 				return true;

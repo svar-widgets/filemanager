@@ -1,16 +1,18 @@
 <script>
-	export let name = "";
-	export let spin = false;
-	export let click;
-
+	let { name = "", spin = false, onclick } = $props();
 </script>
 
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <i
 	data-menu-ignore="true"
 	class="wx-icon wxi-{name} 
 	{spin ? 'wx-spin' : ''} 
-	{click ? 'wx-clickable' : ''}"
-	on:click={click} />
+	{onclick ? 'wx-clickable' : ''}"
+	onclick={() => {
+		onclick && onclick();
+	}}
+></i>
 
 <style>
 	.wx-icon {
@@ -48,5 +50,4 @@
 			transform: rotate(360deg);
 		}
 	}
-
 </style>

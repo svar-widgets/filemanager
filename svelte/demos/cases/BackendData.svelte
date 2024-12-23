@@ -60,7 +60,7 @@
 	let fmApi;
 	// dynamic loading
 	function loadData(ev) {
-		const id = ev.detail.id;
+		const id = ev.id;
 		fetch(server + "/files/" + encodeURIComponent(id))
 			.then(data => data.json())
 			.then(data => {
@@ -74,18 +74,16 @@
 			});
 	}
 
-	let rawData = [];
-	let drive;
-	// load initial data
-	$: {
-		Promise.all([
-			fetch(server + "/files").then(data => data.json()),
-			fetch(server + "/info").then(data => data.json()),
-		]).then(([files, info]) => {
-			rawData = parseDates(files);
-			drive = info;
-		});
-	}
+	let rawData = $state([]);
+	let drive = $state({});
+
+	Promise.all([
+		fetch(server + "/files").then(data => data.json()),
+		fetch(server + "/info").then(data => data.json()),
+	]).then(([files, info]) => {
+		rawData = parseDates(files);
+		drive = info;
+	});
 
 	function init(api) {
 		api.on("download-file", ({ id }) => {
@@ -107,5 +105,5 @@
 	icons={iconsURL}
 	previews={previewURL}
 	extraInfo={requestInfo}
-	on:request-data={loadData}
+	onrequestdata={loadData}
 />

@@ -8,8 +8,7 @@
 
 	const api = getContext("filemanager-store");
 
-	export let narrowMode;
-	export let extraInfo;
+	let { narrowMode, extraInfo } = $props();
 
 	let {
 		panels,
@@ -18,15 +17,6 @@
 		search,
 	} = api.getReactiveState();
 
-	let items, found;
-	$: {
-		const panel = $panels[$activePanel];
-		const selected = panel._selected;
-
-		found = $search && !selected.length;
-		items = found ? panel._files : selected;
-	}
-
 	const locale = getContext("wx-i18n");
 	const _ = locale.getGroup("filemanager");
 	const format = dateToString(
@@ -34,16 +24,46 @@
 		locale.getRaw().calendar
 	);
 
-	let item,
-		name,
-		previewSrc,
-		iconSrc,
-		showDownloadIcon,
-		type,
-		totalCount,
-		totalSize,
-		info;
-	$: {
+	const found = $derived($search && !$panels[$activePanel]._selected.length);
+	const items = $derived(
+		found ? $panels[$activePanel]._files : $panels[$activePanel]._selected
+	);
+
+	function downloadFile() {
+		api.exec("download-file", {
+			id: items[0],
+		});
+	}
+
+	function getTotalCount(folders, files) {
+		return (
+			(folders
+				? `${folders} ${_(folders > 1 ? "folders" : "folder")} `
+				: "") +
+			(files ? `${files} ${_(files > 1 ? "files" : "file")}` : "")
+		);
+	}
+
+	function closePreview() {
+		api.exec("show-preview", { mode: !$rPreview });
+	}
+
+	function getItemType(item) {
+		return item.type === "folder"
+			? _("Folder")
+			: item.ext || _("Unknown file");
+	}
+
+	const basic = $derived.by(() => {
+		let name,
+			item,
+			previewSrc,
+			iconSrc,
+			showDownloadIcon,
+			type,
+			totalCount,
+			totalSize;
+
 		if (items.length === 1 && !found) {
 			item = items[0];
 			name = item.name;
@@ -56,9 +76,8 @@
 				previewSrc = "";
 			}
 			showDownloadIcon = item.type !== "folder";
-			if (extraInfo) getExtraInfo(item);
 		} else {
-			item = showDownloadIcon = info = null;
+			item = showDownloadIcon = null;
 			name = "";
 			if (items.length) {
 				let sum = 0;
@@ -94,41 +113,30 @@
 			);
 			previewSrc = "";
 		}
-	}
 
-	function downloadFile() {
-		api.exec("download-file", {
-			id: item.id,
-		});
-	}
-
-	function getTotalCount(folders, files) {
-		return (
-			(folders
-				? `${folders} ${_(folders > 1 ? "folders" : "folder")} `
-				: "") +
-			(files ? `${files} ${_(files > 1 ? "files" : "file")}` : "")
-		);
-	}
-
-	function closePreview() {
-		api.exec("show-preview", { mode: !$rPreview });
-	}
+		return {
+			name,
+			item,
+			previewSrc,
+			iconSrc,
+			showDownloadIcon,
+			type,
+			totalCount,
+			totalSize,
+		};
+	});
 
 	async function getExtraInfo(item) {
+		if (!extraInfo || !item) return null;
 		try {
-			const response = await extraInfo(item);
-			info = response;
+			return await extraInfo(item);
 		} catch (e) {
-			info = null;
+			console.log(e);
+			return null;
 		}
 	}
 
-	function getItemType(item) {
-		return item.type === "folder"
-			? _("Folder")
-			: item.ext || _("Unknown file");
-	}
+	const info = $derived(getExtraInfo(basic.item));
 </script>
 
 <div class="wx-wrapper">
@@ -137,32 +145,38 @@
 			<div class="wx-toolbar">
 				<div class="wx-name">{name}</div>
 				<div class="wx-icons">
-					{#if showDownloadIcon}
-						<Icon name="download" click={downloadFile} />
+					{#if basic.showDownloadIcon}
+						<Icon name="download" onclick={downloadFile} />
 					{/if}
 					{#if narrowMode}
-						<Icon name="close" click={closePreview} />
+						<Icon name="close" onclick={closePreview} />
 					{/if}
 				</div>
 			</div>
-			{#if previewSrc}
+			{#if basic.previewSrc}
 				<div class="wx-img-wrapper">
-					<img src={previewSrc} alt={_("A miniature file preview")} />
+					<img
+						src={basic.previewSrc}
+						alt={_("A miniature file preview")}
+					/>
 				</div>
-			{:else if iconSrc}
+			{:else if basic.iconSrc}
 				<div class="wx-icon-wrapper">
-					<img src={iconSrc} alt={_("A miniature file preview")} />
+					<img
+						src={basic.iconSrc}
+						alt={_("A miniature file preview")}
+					/>
 				</div>
 			{:else}
 				<div class="wx-icon-wrapper">
-					{#if item}
-						<i class="wx-icon wxi-{item.type}" />
+					{#if basic.item}
+						<i class="wx-icon wxi-{basic.item.type}"></i>
 					{:else}
 						<i
 							class="wx-icon wxi-{found
 								? 'search'
 								: 'file-multiple-outline'}"
-						/>
+						></i>
 					{/if}
 				</div>
 			{/if}
@@ -170,31 +184,37 @@
 		<div class="wx-info-panel">
 			<div class="wx-title">{found ? _("Found") : _("Information")}</div>
 			<div class="wx-list">
-				{#if item}
+				{#if basic.item}
 					<span class="wx-name">{_("Type")}</span>
-					<span class="wx-value">{getItemType(item)}</span>
-					{#if typeof item.size !== "undefined"}
+					<span class="wx-value">{getItemType(basic.item)}</span>
+					{#if typeof basic.item.size !== "undefined"}
 						<span class="wx-name">{_("Size")}</span>
-						<span class="wx-value">{formatSize(item.size)}</span>
+						<span class="wx-value"
+							>{formatSize(basic.item.size)}</span
+						>
 					{/if}
 					<span class="wx-name">{_("Date")}</span>
-					<span class="wx-value">{format(item.date)} </span>
+					<span class="wx-value">{format(basic.item.date)} </span>
 				{:else}
 					<span class="wx-name">{_("Count")}</span>
-					<span class="wx-value">{totalCount}</span>
+					<span class="wx-value">{basic.totalCount}</span>
 					<span class="wx-name">{_("Type")}</span>
-					<span class="wx-value">{type}</span>
-					{#if typeof totalSize !== "undefined"}
+					<span class="wx-value">{basic.type}</span>
+					{#if typeof basic.totalSize !== "undefined"}
 						<span class="wx-name">{_("Size")}</span>
-						<span class="wx-value">{formatSize(totalSize)}</span>
+						<span class="wx-value"
+							>{formatSize(basic.totalSize)}</span
+						>
 					{/if}
 				{/if}
-				{#if info}
-					{#each Object.entries(info) as [name, value]}
-						<span class="wx-name">{name}</span>
-						<span class="wx-value">{value}</span>
-					{/each}
-				{/if}
+				{#await info then values}
+					{#if values}
+						{#each Object.entries(values) as [name, value]}
+							<span class="wx-name">{name}</span>
+							<span class="wx-value">{value}</span>
+						{/each}
+					{/if}
+				{/await}
 			</div>
 		</div>
 	{:else}
@@ -203,23 +223,23 @@
 				<div class="wx-name">{name}</div>
 				<div class="wx-icons">
 					{#if narrowMode}
-						<Icon name="close" click={closePreview} />
+						<Icon name="close" onclick={closePreview} />
 					{/if}
 				</div>
 			</div>
 			<div class="wx-no-info-wrapper">
 				<div class="wx-no-info">
-					{#if previewSrc}
+					{#if basic.previewSrc}
 						<div class="wx-img-wrapper">
 							<img
-								src={previewSrc}
+								src={basic.previewSrc}
 								alt={_("A miniature file preview")}
 							/>
 						</div>
-					{:else if iconSrc}
+					{:else if basic.iconSrc}
 						<div class="wx-icon-wrapper">
 							<img
-								src={iconSrc}
+								src={basic.iconSrc}
 								alt={_("A miniature file preview")}
 							/>
 						</div>
@@ -229,7 +249,7 @@
 								class="wx-icon wxi-{found
 									? 'search'
 									: 'message-question-outline'}"
-							/>
+							></i>
 						</div>
 					{/if}
 					<span class="wx-text"

@@ -3,7 +3,7 @@
 	import { Filemanager } from "../../src/";
 	import { Button } from "wx-svelte-core";
 
-	let api;
+	let api = $state();
 	let serializedData = [];
 
 	function serialize() {
@@ -23,11 +23,11 @@
 </script>
 
 <div style="padding: 10px;">
-	<Button click={serialize}>Serialize and clear the "Code" folder</Button>
-	<Button click={parse}>Load data back</Button>
+	<Button onclick={serialize}>Serialize and clear the "Code" folder</Button>
+	<Button onclick={parse}>Load data back</Button>
 </div>
 <Filemanager
-	bind:api
+	bind:this={api}
 	data={getData()}
 	drive={getDrive()}
 	panels={[{ path: "/Code" }]}

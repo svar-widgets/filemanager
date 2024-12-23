@@ -19,10 +19,10 @@ import type {
 
 export class DataStore extends Store<IData> {
 	public in: EventBus<THandlersConfig, keyof THandlersConfig>;
-	private _router: DataRouter<IData, IDataConfig>;
+	private _router: DataRouter<IData, IDataConfig, THandlersConfig>;
 
 	constructor(w: TWritableCreator) {
-		super(w);
+		super({ writable: w, async: false });
 
 		const configs = [];
 		for (let i = 0; i < 2; i++) {
@@ -180,6 +180,8 @@ export class DataStore extends Store<IData> {
 				const { tree } = this.getState();
 				const folder = tree.byId(id);
 				folder.open = mode;
+				//explicitely call update to repaint
+				tree.update(id, folder);
 				this.setState({ tree });
 			}
 		);

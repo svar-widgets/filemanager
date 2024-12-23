@@ -8,16 +8,14 @@
 	import Drive from "./Drive.svelte";
 	import UploadButton from "./UploadButton.svelte";
 
-	export let readonly;
-	export let menuOptions;
+	let { readonly, menuOptions } = $props();
 
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 	const { showPrompt } = getContext("filemanager-modals");
 
 	registerMenuItem("upload", UploadButton);
 
-	function handleClick(ev) {
-		const { action } = ev.detail;
+	function handleClick({ action }) {
 		if (action) {
 			if (action.id === "add-file")
 				showPrompt({
@@ -39,18 +37,19 @@
 		}
 	}
 
-	$: options = menuOptions("add").map(option => {
-		option.text = _(option.text);
-		return option;
-	});
-
+	let options = $derived(
+		menuOptions("add").map(option => {
+			option.text = _(option.text);
+			return option;
+		})
+	);
 </script>
 
 <div class="wx-wrapper">
 	{#if !readonly}
 		<div class="wx-button">
-			<DropDownMenu {options} at="bottom-fit" on:click={handleClick}>
-				<Button type="primary block">{_('Add New')}</Button>
+			<DropDownMenu {options} at="bottom-fit" onclick={handleClick}>
+				<Button type="primary block">{_("Add New")}</Button>
 			</DropDownMenu>
 		</div>
 	{/if}
@@ -79,5 +78,4 @@
 		flex-grow: 1;
 		overflow-x: auto;
 	}
-
 </style>

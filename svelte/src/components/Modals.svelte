@@ -2,21 +2,21 @@
 	import { getContext, setContext } from "svelte";
 	import { Globals, Modal, Text } from "wx-svelte-core";
 
+	let { children } = $props();
+
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 	const api = getContext("filemanager-store");
+
 	const { panels: rPanels, activePanel: rActivePanel } =
 		api.getReactiveState();
-	$: ({ path } = $rPanels[$rActivePanel]);
 
-	let prompt = null;
-	$: initialName =
-		prompt?.item.name ||
-		(prompt?.item.type === "folder"
-			? _("New folder")
-			: `${_("New file")}.txt`);
-	$: value = initialName;
+	const path = $derived($rPanels[$rActivePanel].path);
+	let prompt = $state(null);
+	let confirm = $state(null);
+	let value = $state("");
+	let initialName = $state("");
+	let error = $state(false);
 
-	let error = false;
 	function promptOk() {
 		const name = value.trim();
 		if (!name) {
@@ -45,7 +45,6 @@
 		initialName = value = "";
 	}
 
-	let confirm = null;
 	function confirmOk() {
 		api.exec("delete-files", { ids: confirm.selected });
 		confirm = null;
@@ -53,24 +52,29 @@
 
 	setContext("filemanager-modals", {
 		showPrompt(config) {
+			initialName = value =
+				config.item.name ||
+				(config.item.type === "folder"
+					? _("New folder")
+					: `${_("New file")}.txt`);
 			prompt = { ...config };
 		},
 		showConfirm(config) {
 			confirm = { ...config };
 		},
 	});
-
 </script>
 
 <Globals>
-	<slot />
+	{@render children?.()}
 </Globals>
 
 {#if prompt}
 	<Modal
 		title={_(`Enter ${prompt.item.type} name`)}
-		ok={promptOk}
-		cancel={closePrompt}>
+		onconfirm={promptOk}
+		oncancel={closePrompt}
+	>
 		<!-- [todo] add selection mask to exclude extensions as a Text feature -->
 		<Text {error} select={true} focus={true} bind:value />
 	</Modal>
@@ -78,9 +82,10 @@
 
 {#if confirm}
 	<Modal
-		title={_('Are you sure you want to delete these items:')}
-		ok={confirmOk}
-		cancel={() => (confirm = null)}>
+		title={_("Are you sure you want to delete these items:")}
+		onconfirm={confirmOk}
+		oncancel={() => (confirm = null)}
+	>
 		{#if confirm.selected}
 			<ul class="wx-list">
 				{#each confirm.selected as item}
@@ -102,5 +107,4 @@
 	.wx-list li {
 		font-weight: var(--wx-font-weight-md);
 	}
-
 </style>

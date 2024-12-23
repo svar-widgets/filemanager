@@ -7,11 +7,10 @@
 	"bracketSpacing": true,
 	"arrowParens": "avoid",
 	"svelteSortOrder": "options-scripts-markup-styles",
-
 	"plugins": [
 		"prettier-plugin-svelte"
 	],
-	"overrides": [
+    "overrides": [
 		{ 
 			"files": "*.svelte",
 			"options": {
@@ -24,5 +23,5 @@
 				"parser": "typescript"
 			}
 		}
-	  ]
+	]
 }

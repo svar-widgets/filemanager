@@ -6,10 +6,10 @@
 	import { getData, getDrive } from "../data";
 	import { Filemanager } from "../../src/";
 
-	let lang = "en";
+	let lang = $state("en");
 	const options = [
-		{ id: "en", name: "EN" },
-		{ id: "cn", name: "CN" },
+		{ id: "en", label: "EN" },
+		{ id: "cn", label: "CN" },
 	];
 </script>
 

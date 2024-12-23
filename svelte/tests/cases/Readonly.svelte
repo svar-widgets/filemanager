@@ -1,13 +1,13 @@
 <script>
 	import { Filemanager } from "../../src";
 	import { getData } from "../data";
-	import { Material, Locale } from "wx-svelte-core";
+	import { Willow, Locale } from "wx-svelte-core";
 
 	const data = getData();
 </script>
 
-<Material>
+<Willow>
 	<Locale>
 		<Filemanager {data} readonly />
 	</Locale>
-</Material>
+</Willow>

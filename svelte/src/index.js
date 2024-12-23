@@ -7,3 +7,7 @@ import WillowDark from "./themes/WillowDark.svelte";
 export { Filemanager, Material, Willow, WillowDark };
 
 export { getMenuOptions } from "wx-filemanager-store";
+
+import { setEnv } from "wx-lib-dom";
+import { env } from "wx-lib-svelte";
+setEnv(env);
