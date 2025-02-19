@@ -1,15 +1,23 @@
-### 2.0.1
+## 2.1.0
 
--   [add] svelte-5 support
+-   Using core@2.1.0
 
-### 1.3.1
+## 2.0.1
 
--   [fix] incorrect types
+### New features
 
-### 1.3.0
+-   Svelte-5 support
 
--   [dev] publish under mit license
+## 1.3.1
 
-### 1.0.0
+### Fixes
 
--   [dev] initial version released
+-   Incorrect types
+
+## 1.3.0
+
+-   Publish under MIT license
+
+## 1.0.0
+
+-   Initial version released

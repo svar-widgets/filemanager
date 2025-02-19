@@ -1,8 +1,7 @@
 <script>
-	import { Cell } from "wx-svelte-grid";
 	import { getContext } from "svelte";
 
-	let { row, col, columnStyle, cellStyle } = $props();
+	let { row } = $props();
 
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 	const templates = getContext("filemanager-store").templates;
@@ -10,25 +9,17 @@
 	const icon = templates.icon(row, "small");
 </script>
 
-<Cell {row} {col} {columnStyle} {cellStyle}>
-	<div class="wx-name-cell">
-		{#if row.id === "/wx-filemanager-parent-link"}
-			<i class="wxi-arrow-left"></i>
-			<span class="wx-name"> {_("Back to parent folder")}</span>
-		{:else}
-			{#if icon}
-				<img
-					class="wx-icon"
-					alt=""
-					src={icon}
-					height="24px"
-					width="24px"
-				/>
-			{:else}<i class="wxi-{row.type}"></i>{/if}
-			<span class="wx-name"> {row.name} </span>
-		{/if}
-	</div>
-</Cell>
+<div class="wx-name-cell">
+	{#if row.id === "/wx-filemanager-parent-link"}
+		<i class="wxi-arrow-left"></i>
+		<span class="wx-name"> {_("Back to parent folder")}</span>
+	{:else}
+		{#if icon}
+			<img class="wx-icon" alt="" src={icon} height="24px" width="24px" />
+		{:else}<i class="wxi-{row.type}"></i>{/if}
+		<span class="wx-name"> {row.name} </span>
+	{/if}
+</div>
 
 <style>
 	.wx-name-cell {

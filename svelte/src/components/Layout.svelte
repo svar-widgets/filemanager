@@ -338,10 +338,10 @@
 		height: calc(100% - var(--wx-fm-toolbar-height));
 		width: 100%;
 	}
-
+	.wx-filemanager > :global(span[data-menu-ignore="true"]),
 	.wx-filemanager
-		> :global(div[data-menu-ignore="true"])
-		> :global(div[data-menu-ignore="true"]) {
+		> :global(span[data-menu-ignore="true"])
+		> :global(span[data-menu-ignore="true"]) {
 		height: 100%;
 		width: 100%;
 		display: flex;

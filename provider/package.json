@@ -1,6 +1,6 @@
 {
 	"name": "wx-filemanager-data-provider",
-	"version": "2.0.1",
+	"version": "2.1.0",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -15,7 +15,7 @@
 		"dist"
 	],
 	"devDependencies": {
-		"wx-filemanager-store": "2.0.1"
+		"wx-filemanager-store": "2.1.0"
 	},
 	"dependencies": {
 		"wx-lib-data-provider": "1.5.1"
