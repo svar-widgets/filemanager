@@ -18,27 +18,12 @@
 
 </div>
 
-SVAR File Manager is a flexible file explorer component for Svelte apps. It offers a familiar interface for browsing, organizing, and previewing files. Integrate it with any backend, whether you're using local storage, databases, or cloud services.
+**SVAR File Manager** is a flexible file explorer component for Svelte apps. It offers a familiar interface for browsing, organizing, and previewing files. Integrate it with any backend, whether you're using local storage, databases, or cloud services.
 
 <div align="center">
   <img src="https://cdn.svar.dev/public/file-manager-1400.png" alt="SVAR File Manager for Svelte - UI" width="700">
 </div>
-
-### Svelte 4 and Svelte 5 versions
-
-There are two versions of the library: the 1.x version, designed to work with Svelte 4, and the 2.x version, created for Svelte 5. Please note that the 2.x version is in beta and may contain some instabilities.
-
-To use the SVAR FileManager beta for Svelte 5, install it as follows:
-
-```
-npm install wx-svelte-filemanager
-```
-
-To use the SVAR FileManager for Svelte 4:
-
-```
-npm install wx-svelte-filemanager@1.3.1
-```
+</br>
 
 ### :sparkles: Key features:
 
@@ -52,6 +37,22 @@ npm install wx-svelte-filemanager@1.3.1
 -   Context menu and toolbar
 -   Keyboard navigation
 -   Used storage info
+
+### :wrench: Svelte 4 and Svelte 5 Versions
+
+There are two versions of the library: the 1.x version, designed to work with Svelte 4, and the 2.x version, created for Svelte 5. 
+
+To use the SVAR FileManager for Svelte 5, install it as follows:
+
+```
+npm install wx-svelte-filemanager
+```
+
+To use the SVAR FileManager for Svelte 4:
+
+```
+npm install wx-svelte-filemanager@1.3.1
+```
 
 ### :hammer_and_pick: How to Use
 
