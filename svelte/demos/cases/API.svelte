@@ -22,13 +22,31 @@
 	}
 </script>
 
-<div style="padding: 10px;">
-	<Button onclick={serialize}>Serialize and clear the "Code" folder</Button>
-	<Button onclick={parse}>Load data back</Button>
+<div class="demo">
+	<div class="bar">
+		<Button onclick={serialize}
+			>Serialize and clear the "Code" folder</Button
+		>
+		<Button onclick={parse}>Load data back</Button>
+	</div>
+	<Filemanager
+		bind:this={api}
+		data={getData()}
+		drive={getDrive()}
+		panels={[{ path: "/Code" }]}
+	/>
 </div>
-<Filemanager
-	bind:this={api}
-	data={getData()}
-	drive={getDrive()}
-	panels={[{ path: "/Code" }]}
-/>
+
+<style>
+	.demo {
+		height: 100%;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.bar {
+		height: 50px;
+		padding: 5px;
+	}
+</style>

@@ -1,6 +1,6 @@
 {
 	"name": "wx-svelte-filemanager",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"description": "Easy-to-use Svelte component for adding a file manager (file explorer) UI",
 	"productTag": "filemanager",
 	"productTrial": false,
@@ -32,16 +32,16 @@
 	},
 	"homepage": "https://svar.dev/svelte/filemanager/",
 	"dependencies": {
-		"wx-filemanager-data-provider": "2.1.0",
-		"wx-filemanager-locales": "2.1.0",
-		"wx-filemanager-store": "2.1.0",
-		"wx-lib-dom": "0.8.0",
+		"wx-filemanager-data-provider": "2.2.0",
+		"wx-filemanager-locales": "2.2.0",
+		"wx-filemanager-store": "2.2.0",
+		"wx-lib-dom": "0.9.1",
 		"wx-lib-svelte": "0.5.1",
-		"wx-lib-state": "1.9.0",
-		"wx-svelte-core": "2.1.0",
-		"wx-svelte-menu": "2.1.0",
-		"wx-svelte-grid": "2.1.0",
-		"wx-svelte-uploader": "2.1.0"
+		"wx-lib-state": "1.9.3",
+		"wx-svelte-core": "2.2.0",
+		"wx-svelte-menu": "2.2.0",
+		"wx-svelte-grid": "2.2.0",
+		"wx-svelte-uploader": "2.2.0"
 	},
 	"files": [
 		"src",

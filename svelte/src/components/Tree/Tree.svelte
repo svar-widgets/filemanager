@@ -25,19 +25,18 @@
 			...(selectedId && { selected: [selectedId] }),
 		});
 	}
-	/* [FIXME] key block below forces tree rendering 
-	   as it does not repaint when state.tree is mutated */
+
+	let folders = $state([]);
+	$effect(() => (folders = $data.byId(0).data));
 </script>
 
-{#key $data}
-	<ul use:delegateClick={{ click, toggle }}>
-		{#each $data.byId(0).data as folder (folder.id)}
-			{#if folder.type === "folder"}
-				<Folder {folder} />
-			{/if}
-		{/each}
-	</ul>
-{/key}
+<ul use:delegateClick={{ click, toggle }}>
+	{#each folders as folder (folder.id)}
+		{#if folder.type === "folder"}
+			<Folder {folder} />
+		{/if}
+	{/each}
+</ul>
 
 <style>
 	ul {

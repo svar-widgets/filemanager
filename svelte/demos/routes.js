@@ -12,16 +12,26 @@ import DataProvider from "./cases/DataProvider.svelte";
 import BackendFilter from "./cases/BackendFilter.svelte";
 
 export const links = [
-	["/base/:skin", "Basic File Manager", BasicInit],
-	["/selection/:skin", "Initial path/selection", PathAndSelection],
-	["/context/:skin", "Custom context menu", ContextMenu],
-	["/readonly/:skin", "Readonly mode", Readonly],
-	["/custom-styles/:skin", "Styling", CustomStyles],
-	["/simple-icons/:skin", "Simple icons", SimpleIcons],
-	["/locales/:skin", "Locales", Locales],
-	["/api/:skin", "API calls", API],
-	["/extra-info/:skin", "Extra info", ExtraInfo],
-	["/serverdata/:skin", "Backend data", BackendData],
-	["/data-provider/:skin", "Saving to backend", DataProvider],
-	["/serverfilter/:skin", "Filtering on backend", BackendFilter],
+	["/base/:skin", "Basic File Manager", BasicInit, "BasicInit"],
+	[
+		"/selection/:skin",
+		"Initial path/selection",
+		PathAndSelection,
+		"PathAndSelection",
+	],
+	["/context/:skin", "Custom context menu", ContextMenu, "ContextMenu"],
+	["/readonly/:skin", "Readonly mode", Readonly, "Readonly"],
+	["/custom-styles/:skin", "Styling", CustomStyles, "CustomStyles"],
+	["/simple-icons/:skin", "Simple icons", SimpleIcons, "SimpleIcons"],
+	["/locales/:skin", "Locales", Locales, "Locales"],
+	["/api/:skin", "API calls", API, "API"],
+	["/extra-info/:skin", "Extra info", ExtraInfo, "ExtraInfo"],
+	["/serverdata/:skin", "Backend data", BackendData, "BackendData"],
+	["/data-provider/:skin", "Saving to backend", DataProvider, "DataProvider"],
+	[
+		"/serverfilter/:skin",
+		"Filtering on backend",
+		BackendFilter,
+		"BackendFilter",
+	],
 ];

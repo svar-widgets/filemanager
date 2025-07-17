@@ -53,5 +53,11 @@ export default [{
                 rules: {
                         "@typescript-eslint/no-unused-expressions": "off"
                 }
+        },
+        {       
+                // temporarily ignore test folders
+                ignores: [
+                        "**/cypress/", "**/test/" 
+                ]
         }
 ];

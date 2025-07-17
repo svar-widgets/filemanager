@@ -13,7 +13,7 @@
 	];
 </script>
 
-<div class="demo-box">
+<div class="demo">
 	<div class="bar">
 		<Segmented {options} bind:value={lang} />
 	</div>
@@ -28,7 +28,7 @@
 </div>
 
 <style>
-	.demo-box {
+	.demo {
 		height: 100%;
 		overflow: hidden;
 		display: flex;
@@ -37,6 +37,6 @@
 
 	.bar {
 		height: 50px;
-		padding: 5px;
+		padding: 5px 10px;
 	}
 </style>

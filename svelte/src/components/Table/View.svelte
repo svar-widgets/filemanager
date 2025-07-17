@@ -25,7 +25,7 @@
 	const selectNavigation = $derived($panels[panel]._selectNavigation);
 	const files = $derived($panels[panel]._files);
 
-	const defaultColumns = [
+	const columns = [
 		{
 			id: "name",
 			header: _("Name"),
@@ -51,15 +51,6 @@
 			template: v => (v ? format(v) : ""),
 		},
 	];
-
-	const columns = $derived.by(() => {
-		const { key, order } = sorts[path] || {};
-		// to mark sorted column with relevant icon
-		return defaultColumns.map(col => {
-			col.$sort = order && col.id === key ? { order } : null;
-			return col;
-		});
-	});
 
 	let sortClick = null;
 	let resizeClick = null;
@@ -168,6 +159,13 @@
 				]
 			: files
 	);
+
+	let sortMarks = $derived.by(() => {
+		if (renderedFiles && sorts[path]) {
+			const { key, order } = sorts[path];
+			return { [key]: { order } };
+		}
+	});
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -188,6 +186,7 @@
 				selectedRows={tableSelection}
 				columnStyle={() => "wx-each-cell"}
 				sizes={{ rowHeight: 42, headerHeight: 42 }}
+				{sortMarks}
 			/>
 		</UploadDropArea>
 	</div>
@@ -236,17 +235,12 @@
 		--wx-table-cell-border: 1px solid var(--wx-color-primary-selected);
 	}
 	/*switch off focus due to filamanager own navigation system*/
-	.wx-list > :global(.wx-upload-area .wx-grid .wx-cell[tabindex="0"]) {
+	.wx-list > :global(.wx-upload-area .wx-grid .wx-cell) {
 		outline: none;
 	}
 
 	/* temp hack to align toolbar and table body (with 1.75px full match) */
 	.wx-list > :global(.wx-upload-area) {
 		border-right: 1px solid transparent;
-	}
-
-	/* magic, do not touch. there is no obvious need for this, but cypress tests in electron break without it */
-	.wx-list > :global(.wx-upload-area .wx-grid .wx-scroll) {
-		overflow-x: hidden;
 	}
 </style>

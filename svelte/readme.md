@@ -27,7 +27,7 @@
 </div>
 
 
-# :sparkles: Key features:
+### :sparkles: Key features:
 - Basic file operations: create, delete, copy, rename, cut, paste
 - Download and upload files
 - Files tree view
@@ -39,9 +39,9 @@
 - Keyboard navigation
 - Used storage info
 
-# :hammer_and_pick: How to Use
+### :hammer_and_pick: How to Use
 
-To use the widget, simply import the package and include the component in your Svelte file:
+To use this Svelte File Manager widget, simply import the package and include the component in your Svelte file:
 
 ```svelte
 <script>

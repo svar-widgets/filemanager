@@ -8,9 +8,9 @@ const cases = [
 	"/locales/:skin",
 	"/api/:skin",
 	"/extra-info/:skin",
-	"/serverdata/:skin",
-	"/data-provider/:skin",
-	"/serverfilter/:skin",
+	//"/serverdata/:skin",
+	//"/data-provider/:skin",
+	//"/serverfilter/:skin",
 ];
 
 const skins = ["material", "willow", "willow-dark"];

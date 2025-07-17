@@ -178,10 +178,8 @@ export class DataStore extends Store<IData> {
 			"open-tree-folder",
 			({ id, mode }: THandlersConfig["open-tree-folder"]) => {
 				const { tree } = this.getState();
-				const folder = tree.byId(id);
-				folder.open = mode;
-				//explicitely call update to repaint
-				tree.update(id, folder);
+
+				tree.update(id, { open: mode });
 				this.setState({ tree });
 			}
 		);

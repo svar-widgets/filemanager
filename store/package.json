@@ -1,6 +1,6 @@
 {
 	"name": "wx-filemanager-store",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -17,6 +17,6 @@
 		"license.txt"
 	],
 	"dependencies": {
-		"wx-lib-state": "1.9.0"
+		"wx-lib-state": "1.9.3"
 	}
 }
