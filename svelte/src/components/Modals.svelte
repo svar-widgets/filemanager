@@ -1,6 +1,6 @@
 <script>
 	import { getContext, setContext } from "svelte";
-	import { Globals, Modal, Text } from "wx-svelte-core";
+	import { Globals, Modal, Text } from "@svar-ui/svelte-core";
 
 	let { children } = $props();
 

@@ -1,9 +1,9 @@
 <script>
 	import { getContext } from "svelte";
 
-	import { delegateClick } from "wx-lib-dom";
+	import { delegateClick } from "@svar-ui/lib-dom";
 	import Folder from "./Folder.svelte";
-	import { getSelectionOnNavigation } from "wx-filemanager-store";
+	import { getSelectionOnNavigation } from "@svar-ui/filemanager-store";
 
 	const api = getContext("filemanager-store");
 	const { tree: data, panels, activePanel } = api.getReactiveState();

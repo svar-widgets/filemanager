@@ -1,8 +1,8 @@
 <script>
 	import { getContext } from "svelte";
 
-	import { Button } from "wx-svelte-core";
-	import { DropDownMenu, registerMenuItem } from "wx-svelte-menu";
+	import { Button } from "@svar-ui/svelte-core";
+	import { DropDownMenu, registerMenuItem } from "@svar-ui/svelte-menu";
 
 	import Tree from "./Tree/Tree.svelte";
 	import Drive from "./Drive.svelte";

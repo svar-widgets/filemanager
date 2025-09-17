@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
-	import { dateToString } from "wx-lib-dom";
-	import { formatSize } from "wx-filemanager-store";
+	import { dateToString } from "@svar-ui/lib-dom";
+	import { formatSize } from "@svar-ui/filemanager-store";
 	import Icon from "./ui/Icon.svelte";
 
 	const { preview, icon } = getContext("filemanager-store").templates;

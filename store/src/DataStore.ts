@@ -1,5 +1,5 @@
-import { Store, EventBus, DataRouter, markReactive } from "wx-lib-state";
-import type { TDataConfig, TWritableCreator } from "wx-lib-state";
+import { Store, EventBus, DataRouter, markReactive } from "@svar-ui/lib-state";
+import type { TDataConfig, TWritableCreator } from "@svar-ui/lib-state";
 import { sort } from "./helpers";
 
 import FileTree from "./FileTree";

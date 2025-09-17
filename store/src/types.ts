@@ -1,6 +1,6 @@
 import type { DataStore, THandlersConfig } from "./DataStore";
 import type FileTree from "./FileTree";
-import type { IEventBus, IPublicWritable } from "wx-lib-state";
+import type { IEventBus, IPublicWritable } from "@svar-ui/lib-state";
 
 export type TID = string;
 export type TContextMenuType =

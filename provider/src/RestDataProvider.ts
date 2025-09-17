@@ -1,12 +1,12 @@
-import { Rest } from "wx-lib-data-provider";
-import type { ActionMap } from "wx-lib-data-provider";
+import { Rest } from "@svar-ui/lib-data-provider";
+import type { ActionMap } from "@svar-ui/lib-data-provider";
 import type {
 	IDrive,
 	THandlersConfig,
 	TID,
 	IEntity,
 	IFile,
-} from "wx-filemanager-store";
+} from "@svar-ui/filemanager-store";
 
 type TProviderMethodsConfig = THandlersConfig & {
 	"upload-file": {

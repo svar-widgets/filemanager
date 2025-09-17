@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import { apiKey } from "wx-svelte-uploader";
+	import { apiKey } from "@svar-ui/svelte-uploader";
 
 	let { item } = $props();
 

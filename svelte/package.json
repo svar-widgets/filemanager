@@ -1,5 +1,5 @@
 {
-	"name": "wx-svelte-filemanager",
+	"name": "@svar-ui/svelte-filemanager",
 	"version": "2.2.0",
 	"description": "Easy-to-use Svelte component for adding a file manager (file explorer) UI",
 	"productTag": "filemanager",
@@ -32,16 +32,22 @@
 	},
 	"homepage": "https://svar.dev/svelte/filemanager/",
 	"dependencies": {
-		"wx-filemanager-data-provider": "2.2.0",
-		"wx-filemanager-locales": "2.2.0",
-		"wx-filemanager-store": "2.2.0",
-		"wx-lib-dom": "0.9.1",
-		"wx-lib-svelte": "0.5.1",
-		"wx-lib-state": "1.9.3",
-		"wx-svelte-core": "2.2.0",
-		"wx-svelte-menu": "2.2.0",
-		"wx-svelte-grid": "2.2.0",
-		"wx-svelte-uploader": "2.2.0"
+		"@svar-ui/filemanager-data-provider": "2.2.0",
+		"@svar-ui/filemanager-locales": "2.2.0",
+		"@svar-ui/filemanager-store": "2.2.0",
+		"@svar-ui/lib-dom": "0.9.2",
+		"@svar-ui/lib-svelte": "0.5.2",
+		"@svar-ui/lib-state": "1.9.6",
+		"@svar-ui/svelte-core": "2.2.1",
+		"@svar-ui/svelte-menu": "2.2.1",
+		"@svar-ui/svelte-grid": "2.2.0",
+		"@svar-ui/svelte-uploader": "2.2.1"
+	},
+	"devDependencies": {
+		"@svar-ui/svelte-editor": "2.2.0",
+		"@svar-ui/svelte-comments": "2.2.1",
+		"@svar-ui/svelte-tasklist": "2.2.1",
+		"@svar-ui/svelte-filter": "2.2.1"
 	},
 	"files": [
 		"src",

@@ -1,7 +1,7 @@
 <script>
 	import { getData, getDrive } from "../data";
 	import { Filemanager } from "../../src/";
-	import { Button } from "wx-svelte-core";
+	import { Button } from "@svar-ui/svelte-core";
 
 	let api = $state();
 	let serializedData = [];

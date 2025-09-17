@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import { formatSize } from "wx-filemanager-store";
+	import { formatSize } from "@svar-ui/filemanager-store";
 
 	const api = getContext("filemanager-store");
 	const drive = api.getReactiveState().drive;

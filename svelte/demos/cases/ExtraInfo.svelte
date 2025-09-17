@@ -1,7 +1,7 @@
 <script>
 	import { getData, getDrive } from "../data";
 	import { Filemanager } from "../../src/";
-	import { formatSize } from "wx-filemanager-store";
+	import { formatSize } from "@svar-ui/filemanager-store";
 
 	function requestInfo(file) {
 		if (file.type === "folder") {

@@ -1,6 +1,6 @@
 <script>
-	import { RestDataProvider } from "wx-filemanager-data-provider";
-	import { formatSize } from "wx-filemanager-store";
+	import { RestDataProvider } from "@svar-ui/filemanager-data-provider";
+	import { formatSize } from "@svar-ui/filemanager-store";
 	import { Filemanager } from "../../src";
 
 	const server = "https://master--svar-filemanager-go--dev.webix.io";

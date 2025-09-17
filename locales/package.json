@@ -1,5 +1,5 @@
 {
-	"name": "wx-filemanager-locales",
+	"name": "@svar-ui/filemanager-locales",
 	"version": "2.2.0",
 	"description": "Locales for WX Filemanager widget",
 	"type": "module",

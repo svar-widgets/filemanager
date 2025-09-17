@@ -3,12 +3,12 @@
 
 	import Layout from "./Layout.svelte";
 
-	import { Locale } from "wx-svelte-core";
-	import { en } from "wx-filemanager-locales";
+	import { Locale } from "@svar-ui/svelte-core";
+	import { en } from "@svar-ui/filemanager-locales";
 
 	// stores
-	import { EventBusRouter } from "wx-lib-state";
-	import { DataStore, getMenuOptions } from "wx-filemanager-store";
+	import { EventBusRouter } from "@svar-ui/lib-state";
+	import { DataStore, getMenuOptions } from "@svar-ui/filemanager-store";
 	import Modals from "./Modals.svelte";
 	import { whitelist } from "../icons";
 

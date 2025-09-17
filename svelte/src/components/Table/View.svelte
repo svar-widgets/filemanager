@@ -1,8 +1,8 @@
 <script>
 	import { getContext } from "svelte";
-	import { formatSize } from "wx-filemanager-store";
-	import { delegateClick, dateToString } from "wx-lib-dom";
-	import { Grid } from "wx-svelte-grid";
+	import { formatSize } from "@svar-ui/filemanager-store";
+	import { delegateClick, dateToString } from "@svar-ui/lib-dom";
+	import { Grid } from "@svar-ui/svelte-grid";
 
 	import Breadcrumbs from "../Breadcrumbs.svelte";
 	import NameCell from "./NameCell.svelte";

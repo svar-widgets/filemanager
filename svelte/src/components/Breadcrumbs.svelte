@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
-	import { delegateClick } from "wx-lib-dom";
-	import { getSelectionOnNavigation } from "wx-filemanager-store";
+	import { delegateClick } from "@svar-ui/lib-dom";
+	import { getSelectionOnNavigation } from "@svar-ui/filemanager-store";
 	import Icon from "./ui/Icon.svelte";
 
 	let { panel } = $props();

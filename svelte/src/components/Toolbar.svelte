@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import { Segmented, TwoState } from "wx-svelte-core";
+	import { Segmented, TwoState } from "@svar-ui/svelte-core";
 	import Search from "./ui/Search.svelte";
 	import Icon from "./ui/Icon.svelte";
 

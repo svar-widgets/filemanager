@@ -1,4 +1,4 @@
-import { locateAttr } from "wx-lib-dom";
+import { locateAttr } from "@svar-ui/lib-dom";
 
 import type { TID, IParsedEntity } from "./types";
 import { getParentPath, getSelectionOnNavigation } from "./helpers";

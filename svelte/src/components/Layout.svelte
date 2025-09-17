@@ -1,8 +1,8 @@
 <script>
-	import { clickOutside, locateID } from "wx-lib-dom";
-	import { ActionMenu, ContextMenu } from "wx-svelte-menu";
-	import { Uploader } from "wx-svelte-uploader";
-	import { hotkeys } from "wx-filemanager-store";
+	import { clickOutside, locateID } from "@svar-ui/lib-dom";
+	import { ActionMenu, ContextMenu } from "@svar-ui/svelte-menu";
+	import { Uploader } from "@svar-ui/svelte-uploader";
+	import { hotkeys } from "@svar-ui/filemanager-store";
 
 	import { getContext, tick } from "svelte";
 

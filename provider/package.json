@@ -1,23 +1,22 @@
 {
-	"name": "wx-filemanager-data-provider",
+	"name": "@svar-ui/filemanager-data-provider",
 	"version": "2.2.0",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
+	"types": "dist/types/index.d.ts",
 	"license": "MIT",
 	"scripts": {
-		"build": "yarn tsc",
-		"watch": "yarn tsc -w --preserveWatchOutput",
+		"build": "vite build",
+		"watch": "vite build --mode development -w",
 		"lint": "yarn eslint ./src",
-		"test": "vitest --run"
+		"test": "vitest --run",
+		"coverage": "vitest --run --coverage"
 	},
 	"files": [
 		"dist"
 	],
-	"devDependencies": {
-		"wx-filemanager-store": "2.2.0"
-	},
 	"dependencies": {
-		"wx-lib-data-provider": "1.5.1"
+		"@svar-ui/lib-data-provider": "1.7.1"
 	}
 }

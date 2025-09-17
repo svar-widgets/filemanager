@@ -1,4 +1,4 @@
-import { DataTree } from "wx-lib-state";
+import { DataTree } from "@svar-ui/lib-state";
 import type {
 	IEntity,
 	IParsedTreeEntity,

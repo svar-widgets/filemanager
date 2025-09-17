@@ -1,6 +1,6 @@
 <script>
 	import { Filemanager } from "../../src";
-	import { formatSize } from "wx-filemanager-store";
+	import { formatSize } from "@svar-ui/filemanager-store";
 
 	const server = "https://master--svar-filemanager-go--dev.webix.io";
 	//server previews

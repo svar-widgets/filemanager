@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
-	import { apiKey } from "wx-svelte-uploader";
-	import { locateAttr } from "wx-lib-dom";
+	import { apiKey } from "@svar-ui/svelte-uploader";
+	import { locateAttr } from "@svar-ui/lib-dom";
 
 	let { children } = $props();
 

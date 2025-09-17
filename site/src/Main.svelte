@@ -1,8 +1,8 @@
 <script>
-	//import { FileManager } from "wx-svelte-filemanager";
+	//import { FileManager } from "@svar-ui/svelte-filemanager";
 	import { Filemanager } from "../../svelte/src";
-	import { RestDataProvider } from "wx-filemanager-data-provider";
-	import { formatSize } from "wx-filemanager-store";
+	import { RestDataProvider } from "@svar-ui/filemanager-data-provider";
+	import { formatSize } from "@svar-ui/filemanager-store";
 
 	const server = "https://master--svar-filemanager-go--dev.webix.io";
 	//server previews

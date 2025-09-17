@@ -1,7 +1,7 @@
 <script>
-	import { Locale, Segmented } from "wx-svelte-core";
-	import { cn } from "wx-filemanager-locales";
-	import { cn as cnCore } from "wx-core-locales";
+	import { Locale, Segmented } from "@svar-ui/svelte-core";
+	import { cn } from "@svar-ui/filemanager-locales";
+	import { cn as cnCore } from "@svar-ui/core-locales";
 
 	import { getData, getDrive } from "../data";
 	import { Filemanager } from "../../src/";
