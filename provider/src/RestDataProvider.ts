@@ -2,13 +2,13 @@ import { Rest } from "@svar-ui/lib-data-provider";
 import type { ActionMap } from "@svar-ui/lib-data-provider";
 import type {
 	IDrive,
-	THandlersConfig,
+	TMethodsConfig,
 	TID,
 	IEntity,
 	IFile,
 } from "@svar-ui/filemanager-store";
 
-type TProviderMethodsConfig = THandlersConfig & {
+type TProviderMethodsConfig = TMethodsConfig & {
 	"upload-file": {
 		file: IFile;
 		parent: TID;
@@ -26,7 +26,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 	getHandlers(): ActionMap<TProviderMethodsConfig> {
 		return {
 			"create-file": {
-				handler: (ev: THandlersConfig["create-file"]) => {
+				handler: (ev: TMethodsConfig["create-file"]) => {
 					if (ev.file.file) {
 						const multipartFormData = new FormData();
 						multipartFormData.append("file", ev.file.file);
@@ -56,7 +56,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 				},
 			},
 			"rename-file": {
-				handler: (ev: THandlersConfig["rename-file"]) => {
+				handler: (ev: TMethodsConfig["rename-file"]) => {
 					return this.send(
 						`files/${encodeURIComponent(ev.id)}`,
 						"PUT",
@@ -71,7 +71,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 				},
 			},
 			"move-files": {
-				handler: async (ev: THandlersConfig["move-files"]) => {
+				handler: async (ev: TMethodsConfig["move-files"]) => {
 					return this.send(
 						"files",
 						"PUT",
@@ -90,7 +90,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 				},
 			},
 			"copy-files": {
-				handler: async (ev: THandlersConfig["copy-files"]) => {
+				handler: async (ev: TMethodsConfig["copy-files"]) => {
 					return this.send(
 						"files",
 						"PUT",
@@ -109,7 +109,7 @@ export default class RestDataProvider extends Rest<TProviderMethodsConfig> {
 				},
 			},
 			"delete-files": {
-				handler: async (ev: THandlersConfig["delete-files"]) => {
+				handler: async (ev: TMethodsConfig["delete-files"]) => {
 					return this.send(
 						"files",
 						"DELETE",

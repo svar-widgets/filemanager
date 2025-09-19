@@ -18,8 +18,8 @@ import type {
 } from "./types";
 
 export class DataStore extends Store<IData> {
-	public in: EventBus<THandlersConfig, keyof THandlersConfig>;
-	private _router: DataRouter<IData, IDataConfig, THandlersConfig>;
+	public in: EventBus<TMethodsConfig, keyof TMethodsConfig>;
+	private _router: DataRouter<IData, IDataConfig, TMethodsConfig>;
 
 	constructor(w: TWritableCreator) {
 		super({ writable: w, async: false });
@@ -27,30 +27,30 @@ export class DataStore extends Store<IData> {
 		const configs = [];
 		for (let i = 0; i < 2; i++) {
 			configs.push({
-				in: ["tree", `panels.${i}.path`],
+				in: ["data", `panels.${i}.path`],
 				out: [`panels.${i}._crumbs`],
 				exec: (ctx: TDataConfig) => {
-					const { tree, panels } = this.getState();
+					const { data, panels } = this.getState();
 					const update: Partial<IPanel>[] = [];
-					update[i] = { _crumbs: tree.getParents(panels[i].path) };
+					update[i] = { _crumbs: data.getParents(panels[i].path) };
 
 					this.setState({ panels: update }, ctx);
 				},
 			});
 			configs.push({
 				in: [
-					"tree",
+					"data",
 					`panels.${i}.path`,
 					`panels.${i}._sorts`,
 					"search",
 				],
 				out: [`panels.${i}._files`],
 				exec: (ctx: TDataConfig) => {
-					const { tree, panels, search } = this.getState();
+					const { data, panels, search } = this.getState();
 					let _files;
 
-					if (search) _files = tree.findFiles(search, panels[i].path);
-					else _files = tree.byId(panels[i].path)?.data || [];
+					if (search) _files = data.findFiles(search, panels[i].path);
+					else _files = data.byId(panels[i].path)?.data || [];
 
 					const { path, _sorts: sorts } = panels[i];
 					_files = sort(_files, sorts[path]);
@@ -62,13 +62,13 @@ export class DataStore extends Store<IData> {
 				},
 			});
 			configs.push({
-				in: ["tree", `panels.${i}.selected`, `panels.${i}._sorts`],
+				in: ["data", `panels.${i}.selected`, `panels.${i}._sorts`],
 				out: [`panels.${i}._selected`],
 				exec: (ctx: TDataConfig) => {
-					const { tree, panels } = this.getState();
+					const { data, panels } = this.getState();
 
 					const selectedFiles = panels[i].selected.map((s: TID) =>
-						tree.byId(s)
+						data.byId(s)
 					);
 					const { path, _sorts: sorts } = panels[i];
 					const sortedFiles = sort(selectedFiles, sorts[path]);
@@ -82,7 +82,7 @@ export class DataStore extends Store<IData> {
 		}
 
 		this._router = new DataRouter(super.setState.bind(this), configs, {
-			tree: (v: IParsedEntity[]) => new FileTree(v),
+			data: (v: IParsedEntity[]) => new FileTree(v),
 		});
 		const inBus = (this.in = new EventBus());
 
@@ -94,7 +94,7 @@ export class DataStore extends Store<IData> {
 				range,
 				panel,
 				type,
-			}: THandlersConfig["select-file"]) => {
+			}: TMethodsConfig["select-file"]) => {
 				const { panels, activePanel } = this.getState();
 				if (typeof panel === "undefined") panel = activePanel;
 				if (!id) toggle = range = false;
@@ -136,9 +136,9 @@ export class DataStore extends Store<IData> {
 
 		inBus.on(
 			"set-path",
-			({ id, panel, selected }: THandlersConfig["set-path"]) => {
-				const { tree, activePanel } = this.getState();
-				const item = tree.byId(id);
+			({ id, panel, selected }: TMethodsConfig["set-path"]) => {
+				const { data, activePanel } = this.getState();
+				const item = data.byId(id);
 				if (item) {
 					const update: Partial<IPanel>[] = [];
 					if (typeof panel === "undefined") panel = activePanel;
@@ -162,52 +162,49 @@ export class DataStore extends Store<IData> {
 
 		inBus.on(
 			"provide-data",
-			({ id, data }: THandlersConfig["provide-data"]) => {
-				const { mode, tree } = this.getState();
-				const item = tree.byId(id);
+			({ id, data: records }: TMethodsConfig["provide-data"]) => {
+				const { mode, data } = this.getState();
+				const item = data.byId(id);
 				if (item) {
 					if (!item.lazy) item.data = [];
 					item.lazy = false;
-					tree.parse(data, id, mode === "search");
-					this.setState({ tree });
+					data.parse(records, id, mode === "search");
+					this.setState({ data });
 				}
 			}
 		);
 
 		inBus.on(
 			"open-tree-folder",
-			({ id, mode }: THandlersConfig["open-tree-folder"]) => {
-				const { tree } = this.getState();
+			({ id, mode }: TMethodsConfig["open-tree-folder"]) => {
+				const { data } = this.getState();
 
-				tree.update(id, { open: mode });
-				this.setState({ tree });
+				data.update(id, { open: mode });
+				this.setState({ data });
 			}
 		);
 
-		inBus.on(
-			"show-preview",
-			({ mode }: THandlersConfig["show-preview"]) => {
-				this.setState({ preview: mode });
-			}
-		);
+		inBus.on("show-preview", ({ mode }: TMethodsConfig["show-preview"]) => {
+			this.setState({ preview: mode });
+		});
 
-		inBus.on("rename-file", (ev: THandlersConfig["rename-file"]) => {
+		inBus.on("rename-file", (ev: TMethodsConfig["rename-file"]) => {
 			const { id, name } = ev;
-			const { tree, panels } = this.getState();
-			const item = tree.byId(id);
+			const { data, panels } = this.getState();
+			const item = data.byId(id);
 
 			if (item.name !== name) {
 				item.name = name;
-				const newFile = tree.normalizeFile(item, item.parent);
+				const newFile = data.normalizeFile(item, item.parent);
 				ev.newId = newFile.id;
 				newFile.data = null;
-				tree.add(newFile);
+				data.add(newFile);
 
 				let changes = { [id]: newFile.id };
 				item.data?.forEach(
 					child =>
 						(changes = {
-							...tree.moveFiles([child.id], newFile.id),
+							...data.moveFiles([child.id], newFile.id),
 							...changes,
 						})
 				);
@@ -221,24 +218,24 @@ export class DataStore extends Store<IData> {
 					};
 				});
 
-				tree.remove(id);
+				data.remove(id);
 				this._updatePanels(update, changes);
-				this.setState({ tree, panels: update });
+				this.setState({ data, panels: update });
 			}
 		});
-		inBus.on("create-file", (ev: THandlersConfig["create-file"]) => {
+		inBus.on("create-file", (ev: TMethodsConfig["create-file"]) => {
 			const { file, parent } = ev;
-			const { tree } = this.getState();
-			const newFile = tree.normalizeFile(file, parent);
+			const { data } = this.getState();
+			const newFile = data.normalizeFile(file, parent);
 			newFile.type = file.type || "file";
 			ev.newId = newFile.id;
 
-			tree.add(newFile);
-			this.setState({ tree });
+			data.add(newFile);
+			this.setState({ data });
 			inBus.exec("select-file", { id: newFile.id });
 		});
-		inBus.on("delete-files", ({ ids }: THandlersConfig["delete-files"]) => {
-			const { tree, panels } = this.getState();
+		inBus.on("delete-files", ({ ids }: TMethodsConfig["delete-files"]) => {
+			const { data, panels } = this.getState();
 
 			const update: Partial<IPanel>[] = panels.map(p => {
 				return {
@@ -249,11 +246,11 @@ export class DataStore extends Store<IData> {
 				};
 			});
 
-			ids.forEach(id => tree.remove(id));
+			ids.forEach(id => data.remove(id));
 			this._updatePanels(update, {});
-			this.setState({ tree, panels: update });
+			this.setState({ data, panels: update });
 		});
-		inBus.on("copy-files", (ev: THandlersConfig["copy-files"]) => {
+		inBus.on("copy-files", (ev: TMethodsConfig["copy-files"]) => {
 			const { ids, target } = ev;
 			if (this._isPlacedIntoSelf(ids, target)) {
 				console.error("You cannot copy a folder into itself");
@@ -261,11 +258,11 @@ export class DataStore extends Store<IData> {
 				return;
 			}
 
-			const { tree, panels, activePanel } = this.getState();
-			const changes = tree.copyFiles(ids, target);
+			const { data, panels, activePanel } = this.getState();
+			const changes = data.copyFiles(ids, target);
 			ev.newIds = ids.map(id => changes[id]);
 
-			this.setState({ tree });
+			this.setState({ data });
 
 			if (panels[activePanel].path == target) {
 				inBus.exec("select-file", {});
@@ -277,7 +274,7 @@ export class DataStore extends Store<IData> {
 				});
 			}
 		});
-		inBus.on("move-files", (ev: THandlersConfig["move-files"]) => {
+		inBus.on("move-files", (ev: TMethodsConfig["move-files"]) => {
 			const { ids, target } = ev;
 			if (this._isPlacedIntoSelf(ids, target)) {
 				console.error("You cannot move a folder into itself");
@@ -285,9 +282,9 @@ export class DataStore extends Store<IData> {
 				return;
 			}
 
-			const { tree, panels, activePanel } = this.getState();
+			const { data, panels, activePanel } = this.getState();
 
-			const changes = tree.moveFiles(ids, target);
+			const changes = data.moveFiles(ids, target);
 			if (changes) {
 				ev.newIds = ids.map(id => changes[id]);
 				const update: Partial<IPanel>[] = panels.map(p => {
@@ -299,7 +296,7 @@ export class DataStore extends Store<IData> {
 					};
 				});
 				this._updatePanels(update, changes, true);
-				this.setState({ tree, panels: update });
+				this.setState({ data, panels: update });
 
 				if (panels[activePanel].path == target) {
 					inBus.exec("select-file", {});
@@ -314,23 +311,20 @@ export class DataStore extends Store<IData> {
 		});
 
 		let prevState: Partial<IData> = null;
-		inBus.on(
-			"filter-files",
-			({ text }: THandlersConfig["filter-files"]) => {
-				if (!text) {
-					if (prevState) this.setState({ ...prevState });
-					return;
-				}
-				inBus.exec("select-file", {});
-				const { panels, mode } = this.getState();
-				if (!prevState) {
-					prevState = { panels, mode, search: "" };
-				}
-				this.setState({ mode: "search", search: text });
+		inBus.on("filter-files", ({ text }: TMethodsConfig["filter-files"]) => {
+			if (!text) {
+				if (prevState) this.setState({ ...prevState });
+				return;
 			}
-		);
+			inBus.exec("select-file", {});
+			const { panels, mode } = this.getState();
+			if (!prevState) {
+				prevState = { panels, mode, search: "" };
+			}
+			this.setState({ mode: "search", search: text });
+		});
 
-		inBus.on("set-mode", ({ mode }: THandlersConfig["set-mode"]) => {
+		inBus.on("set-mode", ({ mode }: TMethodsConfig["set-mode"]) => {
 			const { activePanel } = this.getState();
 			const panels: Partial<IPanel>[] = [];
 			panels[activePanel] = { _selectNavigation: false };
@@ -345,7 +339,7 @@ export class DataStore extends Store<IData> {
 
 		inBus.on(
 			"set-active-panel",
-			({ panel }: THandlersConfig["set-active-panel"]) => {
+			({ panel }: TMethodsConfig["set-active-panel"]) => {
 				this.setState({
 					activePanel: panel,
 				});
@@ -353,7 +347,7 @@ export class DataStore extends Store<IData> {
 		);
 		inBus.on(
 			"sort-files",
-			({ key, order, panel, path }: THandlersConfig["sort-files"]) => {
+			({ key, order, panel, path }: TMethodsConfig["sort-files"]) => {
 				const { activePanel, panels } = this.getState();
 
 				panel = panel ?? activePanel;
@@ -390,7 +384,7 @@ export class DataStore extends Store<IData> {
 
 		const upd: Partial<IDataConfig> = {
 			panels: markReactive(panels),
-			tree: [],
+			data: [],
 			search: "",
 		};
 		this._router.init(upd);
@@ -406,33 +400,33 @@ export class DataStore extends Store<IData> {
 		return this._router.setState(state, ctx);
 	}
 	getFile(id: TID) {
-		const { tree } = this.getState();
-		return tree.byId(id) || null;
+		const { data } = this.getState();
+		return data.byId(id) || null;
 	}
 	serialize(id: TID) {
-		const { tree } = this.getState();
-		return tree.serialize(id);
+		const { data } = this.getState();
+		return data.serialize(id);
 	}
 	_updatePanels(update: Partial<IPanel>[], changes: any, move?: boolean) {
-		const { tree } = this.getState();
+		const { data } = this.getState();
 
 		// if files are moved, we should not replace references to them, just remove
 		update.forEach((panel: IPanel) => {
 			const sel: TID[] = [];
 			panel.selected.forEach((s: TID) => {
-				if (tree.byId(s)) sel.push(s);
+				if (data.byId(s)) sel.push(s);
 				else if (!move && changes[s]) sel.push(changes[s]);
 			});
 			panel.selected = sel;
 
-			if (!tree.byId(panel._lastSelected))
+			if (!data.byId(panel._lastSelected))
 				panel._lastSelected = move
 					? null
 					: changes[panel._lastSelected] || null;
 
 			const sort: { [key: TID]: TSort } = {};
 			Object.keys(panel._sorts).forEach((id: TID) => {
-				if (tree.byId(id)) sort[id] = panel._sorts[id];
+				if (data.byId(id)) sort[id] = panel._sorts[id];
 				else if (changes[id] && !move)
 					sort[changes[id]] = panel._sorts[id];
 			});
@@ -442,7 +436,7 @@ export class DataStore extends Store<IData> {
 			if (last?.id !== "/") {
 				if (changes[last.id]) panel.path = changes[last.id];
 				//maybe here we should find closest valid path
-				else if (!tree.byId(last.id)) panel.path = "/";
+				else if (!data.byId(last.id)) panel.path = "/";
 			}
 		});
 	}
@@ -451,7 +445,7 @@ export class DataStore extends Store<IData> {
 			return (
 				id === target ||
 				this.getState()
-					.tree.getParents(target)
+					.data.getParents(target)
 					.some((p: IParsedEntity) => p.id === id)
 			);
 		});
@@ -463,7 +457,7 @@ type CombineTypes<T, N> = {
 		? T[P] & N
 		: (T[P] & N) | null;
 };
-export type THandlersConfig = CombineTypes<
+export type TMethodsConfig = CombineTypes<
 	{
 		["select-file"]: {
 			id?: TID;
@@ -501,5 +495,6 @@ export type THandlersConfig = CombineTypes<
 	},
 	{
 		skipProvider?: boolean;
+		[key: string]: any;
 	}
 >;

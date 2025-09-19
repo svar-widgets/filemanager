@@ -192,9 +192,6 @@ context("Menus", () => {
 		cy.wxF("menu").children().should("have.length", 1);
 		cy.shot(`card-context-menu-readonly-file`);
 
-		cy.wxF("panel-cards").rightclick(215, 215);
-		cy.shot("card-body-menu-readonly-2");
-
 		cy.wxF("mode-table").click();
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Code/Combo.svelte")
@@ -250,6 +247,10 @@ context("Menus", () => {
 		cy.wxF("panel-cards").wxF("card-item", "/Code").rightclick();
 		cy.wxF("menu").should("not.exist");
 		cy.shot(`card-no-custom-context-menu-readonly`);
+
+		cy.wxF("panel-cards").rightclick();
+		cy.wxF("menu").should("not.exist");
+		cy.shot(`panel-no-context-menu-readonly`);
 
 		cy.wxF("card-dots", "/Music").click();
 		cy.wxF("menu").should("not.exist");

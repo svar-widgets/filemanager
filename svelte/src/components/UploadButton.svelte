@@ -2,7 +2,7 @@
 	import { getContext } from "svelte";
 	import { apiKey } from "@svar-ui/svelte-uploader";
 
-	let { item } = $props();
+	let { option } = $props();
 
 	const _ = getContext("wx-i18n").getGroup("filemanager");
 	const uploaderApi = getContext(apiKey);
@@ -15,7 +15,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div class="wx-upload-button" onclick={openFileChooserDialog}>
-	<span>{_(item.text)}</span>
+	<span>{_(option.text)}</span>
 </div>
 
 <style>

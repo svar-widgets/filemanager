@@ -12,11 +12,10 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/npm/v/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+[![npm](https://img.shields.io/npm/v/@svar-ui/svelte-filemanager.svg)](https://www.npmjs.com/package/@svar-ui/svelte-filemanager)
 [![License](https://img.shields.io/github/license/svar-widgets/filemanager)](https://github.com/svar-widgets/filemanager/blob/main/license.txt)
-[![npm downloads](https://img.shields.io/npm/dm/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+[![npm downloads](https://img.shields.io/npm/dm/@svar-ui/svelte-filemanager.svg)](https://www.npmjs.com/package/@svar-ui/svelte-filemanager)
 [![Last Commit](https://img.shields.io/github/last-commit/svar-widgets/filemanager)](https://github.com/svar-widgets/filemanager)
-
 
 </div>
 
@@ -26,18 +25,18 @@
   <img src="https://cdn.svar.dev/public/file-manager-1400.png" alt="SVAR File Manager for Svelte - UI" width="700">
 </div>
 
-
 ### :sparkles: Key features:
-- Basic file operations: create, delete, copy, rename, cut, paste
-- Download and upload files
-- Files tree view
-- List and tiles views
-- File preview pane with file information (file size, type, modified date, etc)
-- Split view to manage files between different locations
-- Built-in search box
-- Context menu and toolbar
-- Keyboard navigation
-- Used storage info
+
+-   Basic file operations: create, delete, copy, rename, cut, paste
+-   Download and upload files
+-   Files tree view
+-   List and tiles views
+-   File preview pane with file information (file size, type, modified date, etc)
+-   Split view to manage files between different locations
+-   Built-in search box
+-   Context menu and toolbar
+-   Keyboard navigation
+-   Used storage info
 
 ### :hammer_and_pick: How to Use
 
@@ -45,7 +44,7 @@ To use this Svelte File Manager widget, simply import the package and include th
 
 ```svelte
 <script>
-	import { FileManager } from "wx-svelte-filemanager";
+	import { FileManager } from "@svar-ui/svelte-filemanager";
 
 	const data = [
 		{
@@ -62,6 +61,7 @@ To use this Svelte File Manager widget, simply import the package and include th
 
 <Filemanager {data} drive={getDrive()} />
 ```
+
 For further instructions, see our [getting-started guide](https://docs.svar.dev/svelte/filemanager/getting_started/).
 
 ### :computer: How to Modify
@@ -86,5 +86,4 @@ To run the test:
 
 ### :speech_balloon: Need Help?
 
-Join our [community forum](https://forum.svar.dev) to get help and submit feature requests. 
-
+Join our [community forum](https://forum.svar.dev) to get help and submit feature requests.

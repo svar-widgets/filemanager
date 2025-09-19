@@ -1,4 +1,4 @@
-export { DataStore, type THandlersConfig } from "./DataStore";
+export { DataStore, type TMethodsConfig } from "./DataStore";
 export { formatSize, sort, getSelectionOnNavigation } from "./helpers";
 export { getMenuOptions } from "./menus";
 export { hotkeys } from "./hotkeys";
@@ -12,4 +12,7 @@ export type {
 	IApi,
 	TID,
 	IFile,
+	IExtraInfo,
+	IConfig,
+	TContextMenuType,
 } from "./types";

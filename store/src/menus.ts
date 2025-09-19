@@ -1,6 +1,6 @@
-import type { TContextMenuType, TMenuData } from "./types";
+import type { TContextMenuType, IMenuOption } from "./types";
 
-export function getMenuOptions(mode: TContextMenuType): TMenuData[] {
+export function getMenuOptions(mode: TContextMenuType): IMenuOption[] {
 	switch (mode) {
 		case "body":
 			return [
@@ -27,7 +27,7 @@ export function getMenuOptions(mode: TContextMenuType): TMenuData[] {
 					icon: "mdi mdi-file-upload-outline",
 					text: "Upload file",
 					id: "upload",
-					type: "upload",
+					comp: "upload",
 				},
 			];
 		case "multiselect":
@@ -45,7 +45,7 @@ export function getMenuOptions(mode: TContextMenuType): TMenuData[] {
 					id: "move",
 				},
 				{
-					type: "separator",
+					comp: "separator",
 				},
 				{
 					icon: "wxi-close",
@@ -63,7 +63,7 @@ export function getMenuOptions(mode: TContextMenuType): TMenuData[] {
 							text: "Download",
 							hotkey: "Ctrl+D",
 							id: "download",
-					  },
+						},
 				{
 					icon: "wxi-content-copy",
 					text: "Copy",
@@ -83,7 +83,7 @@ export function getMenuOptions(mode: TContextMenuType): TMenuData[] {
 					id: "paste",
 				},
 				{
-					type: "separator",
+					comp: "separator",
 				},
 				{
 					icon: "wxi-edit",

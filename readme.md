@@ -12,9 +12,9 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/npm/v/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+[![npm](https://img.shields.io/npm/v/@svar-ui/svelte-filemanager.svg)](https://www.npmjs.com/package/@svar-ui/svelte-filemanager)
 [![License](https://img.shields.io/github/license/svar-widgets/filemanager)](https://github.com/svar-widgets/filemanager/blob/main/license.txt)
-[![npm downloads](https://img.shields.io/npm/dm/wx-svelte-filemanager.svg)](https://www.npmjs.com/package/wx-svelte-filemanager)
+[![npm downloads](https://img.shields.io/npm/dm/@svar-ui/svelte-filemanager.svg)](https://www.npmjs.com/package/@svar-ui/svelte-filemanager)
 
 </div>
 
@@ -40,12 +40,12 @@
 
 ### :wrench: Svelte 4 and Svelte 5 Versions
 
-There are two versions of the library: the 1.x version, designed to work with Svelte 4, and the 2.x version, created for Svelte 5. 
+There are two versions of the library: the 1.x version, designed to work with Svelte 4, and the 2.x version, created for Svelte 5.
 
 To use the SVAR FileManager for Svelte 5, install it as follows:
 
 ```
-npm install wx-svelte-filemanager
+npm install @svar-ui/svelte-filemanager
 ```
 
 To use the SVAR FileManager for Svelte 4:
@@ -60,7 +60,7 @@ To use the widget, simply import the package and include the component in your S
 
 ```svelte
 <script>
-	import { Filemanager } from "wx-svelte-filemanager";
+	import { Filemanager } from "@svar-ui/svelte-filemanager";
 
 	const data = [
 		{

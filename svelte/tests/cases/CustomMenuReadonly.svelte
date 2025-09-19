@@ -23,7 +23,7 @@
 				return [
 					...getMenuOptions(mode),
 					{
-						type: "separator",
+						comp: "separator",
 					},
 					{
 						icon: "wxi-cat",

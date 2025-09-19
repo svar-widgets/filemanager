@@ -93,13 +93,23 @@ Cypress.Commands.add(
 			case "menu":
 				return subject.get(".wx-menu");
 			case "menu-option":
-				return subject.get(`.wx-menu .wx-item[data-id="${id}"]`);
+				return subject.get(`.wx-menu .wx-option[data-id="${id}"]`);
 
 			default:
 				throw `not supported arguments for wxF: ${type}, ${id}`;
 		}
 	}
 );
+
+// Hide caret in all tests so screenshots are stable
+Cypress.on("window:before:load", win => {
+	if (!win.document.getElementById("hide-caret-style")) {
+		const style = win.document.createElement("style");
+		style.id = "hide-caret-style";
+		style.innerHTML = `*:focus { caret-color: transparent !important; }`;
+		win.document.head.appendChild(style);
+	}
+});
 
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })

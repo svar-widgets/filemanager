@@ -1,3 +1,14 @@
+## 2.3.0
+
+### New features
+
+-   TypeScript definitions
+
+### Fixes
+
+-   Table header overlaps narrow sidebar
+-   Menu is visible in readonly mode over "body" area
+
 ## 2.2.0
 
 -   Using core@2.2.0

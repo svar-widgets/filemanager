@@ -28,7 +28,7 @@ function writable(value) {
 }
 
 const defaultConfig = {
-	tree: [],
+	data: [],
 	mode: "cards",
 	drive: null,
 	preview: false,
@@ -61,7 +61,7 @@ test("supports add action", () => {
 test("can add new files with correct id", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [{ id: "/Folder", name: "Folder", type: "folder" }],
+		data: [{ id: "/Folder", name: "Folder", type: "folder" }],
 	});
 
 	store.in.exec("create-file", {
@@ -106,7 +106,7 @@ test("can add new files with correct id", () => {
 test("can rename file and provide correct ids for the file and ids and parents for childs", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
 			{ id: "/Folder/NewFolder", name: "NewFolder", type: "folder" },
@@ -142,7 +142,7 @@ test("can rename file and provide correct ids for the file and ids and parents f
 test("can copy files with correct ids to another directory", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/text.txt", name: "text.txt" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
@@ -172,7 +172,7 @@ test("can copy files with correct ids to another directory", () => {
 test("can copy files with correct ids to the same directory", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/text.txt", name: "text.txt" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
@@ -207,7 +207,7 @@ test("can copy files with correct ids to the same directory", () => {
 test("can move files with correct ids", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/Folder/NewFolder", name: "NewFolder" },
 			{ id: "/Folder/text.txt", name: "text.txt" },
@@ -245,7 +245,7 @@ test("can move files with correct ids", () => {
 test("should not move files to the same directory", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [{ id: "/Folder", name: "Folder", type: "folder" }],
+		data: [{ id: "/Folder", name: "Folder", type: "folder" }],
 	});
 
 	store.in.exec("set-path", { id: "/" });
@@ -265,7 +265,7 @@ test("should not move files to the same directory", () => {
 test("can filter files", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/text.txt", name: "text.txt" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
@@ -325,7 +325,7 @@ test("should set drive", () => {
 test("should update path", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
 			{ id: "/AnotherFolder", name: "AnotherFolder", type: "folder" },
@@ -348,7 +348,7 @@ test("should update path", () => {
 test("should update path and select files in certain panel", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/Folder", name: "Folder", type: "folder" },
 			{ id: "/Folder/file.txt", name: "file.txt" },
 			{ id: "/Folder/another-file.txt", name: "another-file.txt" },
@@ -380,7 +380,7 @@ test("should update path and select files in certain panel", () => {
 test("can sort files", () => {
 	const { store } = getDataStore({
 		...defaultConfig,
-		tree: [
+		data: [
 			{ id: "/AFolder", name: "AFolder", type: "folder" },
 			{ id: "/Afile.txt", name: "Afile.txt", size: 3500 },
 			{ id: "/BFolder", name: "BFolder", type: "folder", size: 2048 },

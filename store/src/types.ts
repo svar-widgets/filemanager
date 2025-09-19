@@ -1,8 +1,9 @@
-import type { DataStore, THandlersConfig } from "./DataStore";
+import type { DataStore, TMethodsConfig } from "./DataStore";
 import type FileTree from "./FileTree";
-import type { IEventBus, IPublicWritable } from "@svar-ui/lib-state";
+import type { IEventBus, IPublicWritable, IEventConfig } from "@svar-ui/lib-state";
 
 export type TID = string;
+
 export type TContextMenuType =
 	| "folder"
 	| "file"
@@ -10,9 +11,19 @@ export type TContextMenuType =
 	| "add"
 	| "multiselect";
 
-export interface IActionConfig<T = any> {
-	data?: T;
-	noSave?: boolean;
+export interface IMenuOption {
+	id?: string;
+	text?: string;
+	hotkey?: string;
+	icon?: string;
+	comp?: string;
+	type?: string; // fallback to [deprecated] prop
+}
+
+export interface IExtraInfo {
+	Size: string;
+	Count: string;
+	[key: string]: any;
 }
 
 export interface IEntity {
@@ -20,7 +31,7 @@ export interface IEntity {
 	type?: "file" | "folder";
 	size?: number;
 	lazy?: boolean;
-	date: Date;
+	date?: Date;
 	[key: string]: any;
 }
 
@@ -33,12 +44,12 @@ export interface IParsedTreeEntity extends IEntity {
 export interface IParsedEntity extends IParsedTreeEntity {
 	$level: number;
 	open?: boolean;
-	data: IParsedEntity[];
+	data?: IParsedEntity[];
 }
 
 export interface IFile {
 	name: string;
-	date: Date;
+	date?: Date;
 	type?: "file" | "folder";
 	size?: number;
 	file?: File;
@@ -64,52 +75,53 @@ export interface IPanel {
 	_selectNavigation: boolean;
 }
 
-export interface IDataConfig {
-	tree: IEntity[];
-	mode: TMode;
-	preview: boolean;
-	search: string;
-	drive: IDrive;
-	panels: Partial<IPanel>[];
-	activePanel: TActivePanel;
+export interface IConfig {
+	data?: IEntity[];
+	mode?: TMode;
+	drive?: IDrive;
+	preview?: boolean;
+	panels?: Partial<IPanel>[];
+	activePanel?: TActivePanel;
 }
 
-export interface IData {
-	tree: FileTree;
-	mode: TMode;
-	preview: boolean;
+export interface IDataConfig extends IConfig {
 	search: string;
-	drive: IDrive;
-	panels: Partial<IPanel>[];
-	activePanel: TActivePanel;
+}
+
+export interface IData extends Omit<IDataConfig, "data"> {
+	data: FileTree;
 }
 
 export interface IDrive {
-	used: number;
-	total: number;
+	used?: number;
+	total?: number;
 }
 
-export type TMenuData = {
-	id?: string;
-	text?: string;
-	hotkey?: string;
-	icon?: string;
-	type?: string;
-	getData?: any;
-};
-
 export interface IApi {
-	exec: (action: keyof THandlersConfig, params: any) => Promise<any>;
-	on: (action: keyof THandlersConfig, callback: (config: any) => any) => void;
-	intercept: (
-		action: keyof THandlersConfig,
-		callback: (config: any) => any
+	exec: <A extends keyof TMethodsConfig | (string & {})>(
+		action: A,
+		params?: A extends keyof TMethodsConfig ? TMethodsConfig[A] : any
+	) => Promise<any>;
+	on: <A extends keyof TMethodsConfig | (string & {})>(
+		action: A,
+		callback: (
+			config: A extends keyof TMethodsConfig ? TMethodsConfig[A] : any
+		) => any,
+		config?: IEventConfig
 	) => void;
+	intercept: <A extends keyof TMethodsConfig | (string & {})>(
+		action: A,
+		callback: (
+			config: A extends keyof TMethodsConfig ? TMethodsConfig[A] : any
+		) => any,
+		config?: IEventConfig
+	) => void;
+	detach: (tag: IEventConfig["tag"]) => void;
 	getState: () => IData;
 	getReactiveState: () => {
 		[Key in keyof IData]: IPublicWritable<IData[Key]>;
 	};
-	setNext: (next: IEventBus<THandlersConfig>) => IEventBus<THandlersConfig>;
+	setNext: (next: IEventBus<TMethodsConfig>) => IEventBus<TMethodsConfig>;
 	getStores: () => { data: DataStore };
 	getFile: (id: TID) => IParsedEntity | null;
 	serialize: (id: TID) => IEntity[] | null;

@@ -6,7 +6,7 @@
 	import { getSelectionOnNavigation } from "@svar-ui/filemanager-store";
 
 	const api = getContext("filemanager-store");
-	const { tree: data, panels, activePanel } = api.getReactiveState();
+	const { data, panels, activePanel } = api.getReactiveState();
 
 	const crumbs = $derived($panels[$activePanel]._crumbs);
 

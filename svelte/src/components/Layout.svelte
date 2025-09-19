@@ -75,7 +75,7 @@
 
 		let options;
 
-		if (readonly && item) {
+		if (readonly) {
 			options = getReadonlyMenu(item?.type);
 		} else {
 			switch (id) {
@@ -322,7 +322,7 @@
 	}
 	.wx-sidebar-narrow {
 		position: absolute !important;
-		z-index: 3;
+		z-index: 5;
 		left: -300px;
 		transition-duration: 0.6s;
 	}

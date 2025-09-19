@@ -100,7 +100,7 @@
 	let init_once = true;
 	const reinitStore = () => {
 		dataStore.init({
-			tree: data,
+			data,
 			mode,
 			drive,
 			preview,
