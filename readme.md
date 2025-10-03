@@ -37,6 +37,8 @@
 -   Context menu and toolbar
 -   Keyboard navigation
 -   Used storage info
+-   Easy customization
+-   Full TypeScript support
 
 ### :wrench: Svelte 4 and Svelte 5 Versions
 
