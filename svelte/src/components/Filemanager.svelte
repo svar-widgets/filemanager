@@ -39,6 +39,7 @@
 			return `https://cdn.svar.dev/icons/filemanager/vivid/${size}/${icon}.svg`;
 		},
 		previews = null,
+		hideSidebar = false,
 		...restProps
 	} = $props();
 
@@ -119,6 +120,6 @@
 
 <Locale words={en} optional={true}>
 	<Modals>
-		<Layout {readonly} {menuOptions} {extraInfo} />
+		<Layout {readonly} {menuOptions} {extraInfo} {hideSidebar} />
 	</Modals>
 </Locale>
