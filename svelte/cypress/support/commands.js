@@ -22,6 +22,17 @@ Cypress.Commands.add("shot", (...args) => {
 });
 
 Cypress.Commands.add(
+	"keyDown",
+	{
+		prevSubject: "optional",
+	},
+	(subject, code, config) => {
+		subject = subject ? cy.wrap(subject) : cy.root();
+		subject.trigger("keydown", { key: code, code, ...config });
+	}
+);
+
+Cypress.Commands.add(
 	"wxF",
 	{
 		prevSubject: "optional",

@@ -70,7 +70,7 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("OK").click();
 		cy.wxF("panel-cards").children().should("have.length", 3);
@@ -79,7 +79,7 @@ context("Hotkeys", () => {
 
 		cy.wxF("mode-table").click();
 		cy.wxF("panel-table").wxF("grid-item", "/Music").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("Cancel").click();
 		cy.wxF("panel-table")
@@ -94,7 +94,7 @@ context("Hotkeys", () => {
 		cy.wxF("fm-right-panel")
 			.wxF("grid-item", "/Music")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("OK").click();
 		cy.wxF("fm-right-panel")
@@ -124,7 +124,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Pictures")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("Cancel").click();
 		cy.wxF("panel-cards").click("bottom");
@@ -139,7 +139,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Pictures")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("Cancel").click();
 
@@ -152,7 +152,7 @@ context("Hotkeys", () => {
 		cy.wxF("fm-right-panel")
 			.wxF("grid-item", "/Pictures")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("be.visible");
 		cy.get(".wx-modal").find("button").contains("Cancel").click();
 	});
@@ -179,13 +179,13 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Pictures")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-cards").click("bottom");
@@ -193,39 +193,39 @@ context("Hotkeys", () => {
 		cy.wxF("mode-table").click();
 
 		cy.wxF("panel-table").wxF("grid-item", "/Code").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Pictures")
 			.click({ ctrlKey: true });
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-table").click("bottom");
 
 		cy.wxF("mode-panels").click();
 		cy.wxF("fm-left-panel").wxF("grid-item", "/Pictures").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("mode-cards").click();
 		cy.wxF("panel-cards").wxF("card-item", "/Code").dblclick();
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code/Area.svelte").click();
-		cy.wxF("fm").trigger("keydown", { force: true, code: "Delete" });
+		cy.wxF("fm").keyDown("Delete", { force: true });
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("mode-table").click();
 		cy.wxF("panel-table").wxF("grid-item", "/Code/Combo.svelte").click();
-		cy.wxF("fm").trigger("keydown", { force: true, code: "Delete" });
+		cy.wxF("fm").keyDown("Delete", { force: true });
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("mode-panels").click();
 		cy.wxF("fm-left-panel")
 			.wxF("grid-item", "/Code/Confirm.svelte")
 			.click();
-		cy.wxF("fm").trigger("keydown", { force: true, code: "Delete" });
+		cy.wxF("fm").keyDown("Delete", { force: true });
 		cy.get(".wx-modal").should("not.exist");
 	});
 
@@ -234,7 +234,7 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code").click();
-		cy.wxF("fm").trigger("keydown", { force: true, code: "Delete" });
+		cy.wxF("fm").keyDown("Delete", { force: true });
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-cards").wxF("card-item", "/Music").click();
@@ -256,7 +256,7 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code").click();
-		cy.wxF("fm").trigger("keydown", { code: "Delete" });
+		cy.wxF("fm").keyDown("Delete");
 		cy.get(".wx-modal").should("not.exist");
 
 		cy.wxF("panel-cards").wxF("card-item", "/Music").click();
@@ -275,7 +275,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Code/Button.svelte")
 			.click(0, 50); // [temp] workaround for svelte-menu fitToBody bug
-		cy.wxF("fm").trigger("keydown", { force: true, code: "Delete" });
+		cy.wxF("fm").keyDown("Delete", { force: true });
 		cy.get(".wx-modal").should("not.exist");
 	});
 
@@ -283,26 +283,26 @@ context("Hotkeys", () => {
 		cy.visit(`/index.html#/local-data`);
 		cy.viewport(1300, 900);
 
-		cy.wxF("fm").trigger("keydown", { code: "ArrowRight" });
+		cy.wxF("fm").keyDown("ArrowRight");
 		cy.get(".wx-item.wx-selected").should("have.length", 1);
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Code")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.get(".wx-item.wx-selected").should("have.length", 1);
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Music")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowRight" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
+		cy.wxF("fm").keyDown("ArrowRight");
+		cy.wxF("fm").keyDown("ArrowDown");
+		cy.wxF("fm").keyDown("ArrowLeft");
 		cy.get(".wx-item.wx-selected").should("have.length", 1);
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Pictures")
 			.should("have.class", "wx-selected");
 		cy.wxF("panel-cards").click("bottom");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.get(".wx-item.wx-selected").should("have.length", 1);
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Code")
@@ -311,24 +311,24 @@ context("Hotkeys", () => {
 
 		cy.wxF("panel-cards").click("bottom");
 		cy.wxF("mode-table").click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.get(".wx-row.wx-selected").should("have.length", 1);
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Code")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowRight" });
+		cy.wxF("fm").keyDown("ArrowDown");
+		cy.wxF("fm").keyDown("ArrowRight");
 		cy.get(".wx-row.wx-selected").should("have.length", 1);
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Pictures")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
+		cy.wxF("fm").keyDown("ArrowLeft");
 		cy.get(".wx-row.wx-selected").should("have.length", 1);
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Music")
 			.should("have.class", "wx-selected");
 		cy.wxF("panel-table").click("bottom");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.get(".wx-row.wx-selected").should("have.length", 1);
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Code")
@@ -337,17 +337,17 @@ context("Hotkeys", () => {
 
 		cy.wxF("panel-table").click("bottom");
 		cy.wxF("mode-panels").click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowRight" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowUp");
+		cy.wxF("fm").keyDown("ArrowRight");
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.wxF("fm-left-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
 		cy.wxF("fm-left-panel")
 			.wxF("grid-item", "/Pictures")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowLeft");
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("fm-left-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -355,9 +355,9 @@ context("Hotkeys", () => {
 			.wxF("grid-item", "/Code")
 			.should("have.class", "wx-selected");
 		cy.wxF("fm-right-panel").click("bottom");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
+		cy.wxF("fm").keyDown("ArrowDown");
+		cy.wxF("fm").keyDown("ArrowDown");
+		cy.wxF("fm").keyDown("ArrowLeft");
 		cy.wxF("fm-right-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -419,13 +419,13 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("fm").wxF("card-item", "/Pictures").dblclick();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowRight" });
+		cy.wxF("fm").keyDown("ArrowRight");
 		cy.wxF("panel-cards")
 			.find(".wx-back")
 			.should("have.class", "wx-selected");
 		cy.get(".wx-item.wx-selected").should("have.length", 0);
 		cy.wxF("panel-cards").click("bottom");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
+		cy.wxF("fm").keyDown("ArrowLeft");
 		cy.wxF("panel-cards")
 			.find(".wx-back")
 			.should("have.class", "wx-selected");
@@ -441,7 +441,7 @@ context("Hotkeys", () => {
 			.find(".wx-back")
 			.should("not.have.class", "wx-selected");
 		cy.get(".wx-item.wx-selected").should("have.length", 1);
-		cy.wxF("fm").trigger("keydown", { code: "ArrowLeft" });
+		cy.wxF("fm").keyDown("ArrowLeft");
 		cy.wxF("panel-cards")
 			.find(".wx-back")
 			.should("have.class", "wx-selected");
@@ -450,7 +450,7 @@ context("Hotkeys", () => {
 
 		cy.wxF("panel-cards").click("bottom");
 		cy.wxF("mode-table").click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.wxF("panel-table")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -458,7 +458,7 @@ context("Hotkeys", () => {
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("have.class", "wx-selected");
 		cy.wxF("panel-table").click("bottom");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("panel-table")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -480,7 +480,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("not.have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("panel-table")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -491,14 +491,14 @@ context("Hotkeys", () => {
 
 		cy.wxF("panel-table").click("bottom");
 		cy.wxF("mode-panels").click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.wxF("fm-left-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
 		cy.wxF("fm-left-panel")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.wxF("fm").trigger("keydown", { ctrlKey: true, code: "ArrowUp" });
 		cy.wxF("fm").trigger("keydown", { shiftKey: true, code: "ArrowUp" });
 		cy.wxF("fm-left-panel")
@@ -507,7 +507,7 @@ context("Hotkeys", () => {
 		cy.wxF("fm-left-panel")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("not.have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("fm-left-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -515,7 +515,7 @@ context("Hotkeys", () => {
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("have.class", "wx-selected");
 		cy.wxF("fm-right-panel").wxF("grid-item", "/Code").dblclick();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 
 		cy.wxF("fm-right-panel")
 			.find(".wx-row.wx-selected")
@@ -532,7 +532,7 @@ context("Hotkeys", () => {
 		cy.wxF("fm-right-panel")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.should("not.have.class", "wx-selected");
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("fm-right-panel")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -547,9 +547,9 @@ context("Hotkeys", () => {
 		cy.viewport(1300, 900);
 
 		cy.wxF("mode-table").click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowDown" });
+		cy.wxF("fm").keyDown("ArrowDown");
 		cy.wxF("table-header-cell", 0).click();
-		cy.wxF("fm").trigger("keydown", { code: "ArrowUp" });
+		cy.wxF("fm").keyDown("ArrowUp");
 		cy.wxF("panel-table")
 			.find(".wx-row.wx-selected")
 			.should("have.length", 1);
@@ -577,7 +577,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-cards").find(".wx-item").should("have.length", 4);
 
 		cy.wxF("panel-cards").wxF("card-item", "/Pictures").click();
-		cy.wxF("fm").trigger("keydown", { code: "Enter" });
+		cy.wxF("fm").keyDown("Enter");
 		cy.wxF("panel-cards").find(".wx-item").should("have.length", 6);
 		cy.shot("grid-folder-open-by-hotkey");
 	});
@@ -588,7 +588,7 @@ context("Hotkeys", () => {
 
 		cy.wxF("panel-cards").wxF("card-item", "/Code").dblclick();
 		cy.wxF("panel-cards").find(".wx-back").click();
-		cy.wxF("fm").trigger("keydown", { code: "Enter" });
+		cy.wxF("fm").keyDown("Enter");
 		cy.wxF("panel-cards").find(".wx-item").should("have.length", 4);
 		cy.wxF("panel-cards")
 			.wxF("card-item", "/Code")
@@ -600,7 +600,7 @@ context("Hotkeys", () => {
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.click();
-		cy.wxF("fm").trigger("keydown", { code: "Enter" });
+		cy.wxF("fm").keyDown("Enter");
 		cy.wxF("panel-table").find(".wx-row").should("have.length", 4);
 		cy.wxF("panel-table")
 			.wxF("grid-item", "/Music")
@@ -612,13 +612,13 @@ context("Hotkeys", () => {
 		cy.wxF("fm-left-panel")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.click();
-		cy.wxF("fm").trigger("keydown", { code: "Enter" });
+		cy.wxF("fm").keyDown("Enter");
 		cy.wxF("fm-left-panel").find(".wx-row").should("have.length", 4);
 		cy.wxF("fm-right-panel").wxF("grid-item", "/Pictures").dblclick();
 		cy.wxF("fm-right-panel")
 			.wxF("grid-item", "/wx-filemanager-parent-link")
 			.click();
-		cy.wxF("fm").trigger("keydown", { code: "Enter" });
+		cy.wxF("fm").keyDown("Enter");
 		cy.wxF("fm-right-panel").find(".wx-row").should("have.length", 4);
 		cy.shot("panels-back-to-pictures-folder-hotkey");
 	});

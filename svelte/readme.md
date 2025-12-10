@@ -19,7 +19,7 @@
 
 </div>
 
-[SVAR File Manager](https://svar.dev/svelte/filemanager/$0) is a flexible file explorer component for Svelte apps. It offers a familiar interface for browsing, organizing, and previewing files. Integrate it with any backend, whether you're using local storage, databases, or cloud services.
+[SVAR Svelte File Manager](https://svar.dev/svelte/filemanager/$0) is a flexible file explorer component for Svelte apps. It offers a familiar interface for browsing, organizing, and previewing files. You can integrate it with any backend, whether you're using local storage, databases, or cloud services.
 
 <div align="center">
   <img src="https://cdn.svar.dev/public/file-manager-1400.png" alt="SVAR File Manager for Svelte - UI" width="700">
@@ -37,10 +37,12 @@
 -   Context menu and toolbar
 -   Keyboard navigation
 -   Used storage info
+-   Easy customization
+-   Full TypeScript support
 
 ### :hammer_and_pick: How to Use
 
-To use this Svelte File Manager widget, simply import the package and include the component in your Svelte file:
+To use SVAR Svelte File Manager, simply import the package and include the component in your Svelte file:
 
 ```svelte
 <script>
