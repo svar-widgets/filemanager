@@ -3,7 +3,7 @@
 	import { formatSize } from "@svar-ui/filemanager-store";
 	import { Filemanager } from "../../src";
 
-	const server = "https://filemanager-backend.svar.dev";
+	const server = "https://master--svar-filemanager-go--dev.webix.io";
 
 	//server previews
 	function previewURL(file, width, height) {

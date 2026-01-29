@@ -19,7 +19,7 @@ export interface IFileMenuOption extends IMenuOption {
 export declare const Filemanager: Component<
 	{
 		readonly?: boolean;
-		menuOptions?: () => (
+		menuOptions?: (
 			mode: TContextMenuType,
 			item?: IParsedEntity
 		) => IFileMenuOption[];

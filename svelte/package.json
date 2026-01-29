@@ -1,6 +1,6 @@
 {
 	"name": "@svar-ui/svelte-filemanager",
-	"version": "2.4.0",
+	"version": "2.4.1",
 	"description": "Easy-to-use Svelte component for adding a file manager (file explorer) UI",
 	"productTag": "filemanager",
 	"productTrial": false,
@@ -33,9 +33,9 @@
 	},
 	"homepage": "https://svar.dev/svelte/filemanager/",
 	"dependencies": {
-		"@svar-ui/filemanager-data-provider": "2.4.0",
-		"@svar-ui/filemanager-locales": "2.4.0",
-		"@svar-ui/filemanager-store": "2.4.0",
+		"@svar-ui/filemanager-data-provider": "2.4.1",
+		"@svar-ui/filemanager-locales": "2.4.1",
+		"@svar-ui/filemanager-store": "2.4.1",
 		"@svar-ui/lib-dom": "0.11.1",
 		"@svar-ui/lib-svelte": "0.5.2",
 		"@svar-ui/lib-state": "1.9.6",
