@@ -16,6 +16,10 @@ export interface IFileMenuOption extends IMenuOption {
 	hotkey: string;
 }
 
+export type FilePreview = IParsedEntity & {
+	type: "file" | "folder" | "search" | "multiple" | "none";
+};
+
 export declare const Filemanager: Component<
 	{
 		readonly?: boolean;
@@ -28,7 +32,7 @@ export declare const Filemanager: Component<
 		) => Promise<IExtraInfo> | IExtraInfo | null;
 		icons?: (file: IParsedEntity, size: "big" | "small") => string;
 		previews?: (
-			file: IParsedEntity | { type: "search" | "multiple" | "none" },
+			file: FilePreview,
 			width: number,
 			height: number
 		) => string | null;

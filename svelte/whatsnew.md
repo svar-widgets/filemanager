@@ -1,6 +1,22 @@
+## 2.4.2
+
+### Fixes
+
+-   `download-file` action has wrong id parameter if invoked from preview screen
+-   `menuOptions` property has wrong Typescript definition
+-   Scrollable area can be broken by outside container settings
+-   Scrollable area is calculated incorrectly, last item is always hidden
+-   Incorrect import paths in Typescript definition files
+
+## 2.4.1
+
+### Fixes
+
+-   `menuOptions` property has wrong Typescript definition
+
 ## 2.4.0
 
--   Using Core@2.4.0
+-   Using Svelte Core v2.4.0
 
 ## 2.3.0
 
@@ -15,11 +31,11 @@
 
 ## 2.2.0
 
--   Using core@2.2.0
+-   Using Svelte Core v2.2.0
 
 ## 2.1.0
 
--   Using core@2.1.0
+-   Using Svelte Core v2.1.0
 
 ## 2.0.1
 

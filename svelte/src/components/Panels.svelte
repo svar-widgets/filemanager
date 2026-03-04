@@ -1,6 +1,7 @@
 <script>
 	import TableView from "./Table/View.svelte";
 	import { getContext } from "svelte";
+	import { setID } from "@svar-ui/lib-dom";
 
 	const api = getContext("filemanager-store");
 	const activePanel = api.getReactiveState().activePanel;
@@ -10,7 +11,7 @@
 	}
 </script>
 
-<div class="wx-panels" data-id="body">
+<div class="wx-panels" data-id={setID("body")}>
 	<div class="wx-item" data-panel={0}>
 		<TableView
 			panel={0}

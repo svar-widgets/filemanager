@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import { delegateClick } from "@svar-ui/lib-dom";
+	import { delegateClick, setID } from "@svar-ui/lib-dom";
 	import { getSelectionOnNavigation } from "@svar-ui/filemanager-store";
 	import Icon from "./ui/Icon.svelte";
 
@@ -52,7 +52,7 @@
 		{#if i}
 			<Icon name="angle-right" />
 		{/if}
-		<div class="wx-item" data-id={crumb.id} data-menu-ignore="true">
+		<div class="wx-item" data-id={setID(crumb.id)} data-menu-ignore="true">
 			{crumb.id == "/" ? _(crumb.name) : crumb.name}
 		</div>
 	{/each}

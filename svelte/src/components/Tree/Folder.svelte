@@ -1,4 +1,5 @@
 <script>
+	import { setID } from "@svar-ui/lib-dom";
 	import Folder from "./Folder.svelte";
 	import { getContext } from "svelte";
 
@@ -18,7 +19,7 @@
 </script>
 
 <li
-	data-id={folder.id}
+	data-id={setID(folder.id)}
 	class="wx-folder"
 	class:wx-selected={path === folder.id}
 	style="padding-left: {padding}px"

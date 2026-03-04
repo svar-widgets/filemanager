@@ -177,7 +177,7 @@ export function hotkeys(node: HTMLElement, config: any) {
 				const active = document.activeElement;
 				if (active.className.indexOf("table") != -1) {
 					api.exec("set-active-panel", {
-						panel: locateAttr(active, "data-panel"),
+						panel: +locateAttr(active, "data-panel"),
 					});
 				}
 			});

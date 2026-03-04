@@ -1,6 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import { Segmented, TwoState } from "@svar-ui/svelte-core";
+	import { setID } from "@svar-ui/lib-dom";
 	import Search from "./ui/Search.svelte";
 	import Icon from "./ui/Icon.svelte";
 
@@ -35,7 +36,7 @@
 		{#if !narrowMode}
 			<div class="wx-name">{_("Files")}</div>
 		{:else if !($mode == "panels" || $mode == "search")}
-			<div class="wx-sidebar-icon" data-id="toggle-tree">
+			<div class="wx-sidebar-icon" data-id={setID("toggle-tree")}>
 				<Icon
 					onclick={() => onshowtree && onshowtree()}
 					name="subtask"
@@ -61,7 +62,7 @@
 
 <style>
 	.wx-toolbar {
-		flex: 0 0 var(--wx-fm-toolbar-height);
+		height: var(--wx-fm-toolbar-height);
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

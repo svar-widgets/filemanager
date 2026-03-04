@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import { formatSize } from "@svar-ui/filemanager-store";
-	import { delegateClick, dateToString } from "@svar-ui/lib-dom";
+	import { delegateClick, dateToString, setID } from "@svar-ui/lib-dom";
 	import { Grid } from "@svar-ui/svelte-grid";
 
 	import Breadcrumbs from "../Breadcrumbs.svelte";
@@ -173,7 +173,7 @@
 <div {onclick} {oncontextmenu} class="wx-wrapper">
 	<Breadcrumbs {panel} />
 	<div
-		data-id="body"
+		data-id={setID("body")}
 		class="wx-list"
 		class:wx-active={active}
 		use:delegateClick={{ click, dblclick }}

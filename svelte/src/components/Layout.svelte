@@ -1,5 +1,5 @@
 <script>
-	import { clickOutside, locateID } from "@svar-ui/lib-dom";
+	import { clickOutside, locateID, setID } from "@svar-ui/lib-dom";
 	import { ActionMenu, ContextMenu } from "@svar-ui/svelte-menu";
 	import { Uploader } from "@svar-ui/svelte-uploader";
 	import { hotkeys } from "@svar-ui/filemanager-store";
@@ -242,7 +242,7 @@
 									class="wx-content-item{$rPreview
 										? ''
 										: '-fit'}"
-									data-id="body"
+									data-id={setID("body")}
 								>
 									{#if $rMode === "table"}
 										<TableView panel={$rActivePanel} />
@@ -335,13 +335,14 @@
 		padding-top: 10px;
 	}
 	.wx-filemanager > :global(div[data-menu-ignore="true"]) {
-		height: calc(100% - var(--wx-fm-toolbar-height));
+		height: 100%;
 		width: 100%;
 	}
 	.wx-filemanager > :global(span[data-menu-ignore="true"]),
 	.wx-filemanager
 		> :global(span[data-menu-ignore="true"])
 		> :global(span[data-menu-ignore="true"]) {
+		min-height: 0;
 		height: 100%;
 		width: 100%;
 		display: flex;

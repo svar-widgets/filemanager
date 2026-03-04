@@ -8,6 +8,8 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
+import { setID } from "@svar-ui/lib-dom";
+
 Cypress.Commands.add("shot", (...args) => {
 	// eslint-disable-next-line cypress/no-unnecessary-waiting
 	cy.wait(100);
@@ -64,10 +66,12 @@ Cypress.Commands.add(
 			case "tree":
 				return subject.get(".wx-sidebar .wx-tree ul");
 			case "tree-item":
-				return subject.get(`.wx-tree .wx-folder[data-id="${id}"]`);
+				return subject.get(
+					`.wx-tree .wx-folder[data-id="${setID(id)}"]`
+				);
 			case "tree-toggle":
 				return subject.get(
-					`.wx-tree .wx-folder[data-id="${id}"] .wx-toggle`
+					`.wx-tree .wx-folder[data-id="${setID(id)}"] .wx-toggle`
 				);
 
 			case "panel-cards":
@@ -82,12 +86,12 @@ Cypress.Commands.add(
 				return subject.get(".wx-search");
 
 			case "grid-item":
-				return subject.find(`.wx-row[data-id="${id}"]`);
+				return subject.find(`.wx-row[data-id="${setID(id)}"]`);
 			case "card-item":
-				return subject.find(`.wx-item[data-id="${id}"]`);
+				return subject.find(`.wx-item[data-id="${setID(id)}"]`);
 
 			case "crumb":
-				return subject.find(`.wx-item[data-id="${id}"]`);
+				return subject.find(`.wx-item[data-id="${setID(id)}"]`);
 
 			case "fm-left-panel":
 				return subject.get(".wx-panels .wx-item .wx-wrapper").first();
@@ -96,7 +100,7 @@ Cypress.Commands.add(
 
 			case "card-dots":
 				return subject.get(
-					`.wx-cards .wx-item[data-id="${id}"] .wx-info .wx-more`
+					`.wx-cards .wx-item[data-id="${setID(id)}"] .wx-info .wx-more`
 				);
 			case "table-header-cell":
 				return subject.get(".wx-list .wx-header .wx-cell").eq(id);
@@ -104,7 +108,9 @@ Cypress.Commands.add(
 			case "menu":
 				return subject.get(".wx-menu");
 			case "menu-option":
-				return subject.get(`.wx-menu .wx-option[data-id="${id}"]`);
+				return subject.get(
+					`.wx-menu .wx-option[data-id="${setID(id)}"]`
+				);
 
 			default:
 				throw `not supported arguments for wxF: ${type}, ${id}`;

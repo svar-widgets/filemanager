@@ -1,5 +1,6 @@
 <script>
 	import { getContext } from "svelte";
+	import { setID } from "@svar-ui/lib-dom";
 
 	let { item } = $props();
 
@@ -15,12 +16,12 @@
 	let icon = $derived(templates.icon(item, "big"));
 </script>
 
-{#if item.id == "/wx-filemanager-parent-link"}
+{#if item.id === "/wx-filemanager-parent-link"}
 	{#if $mode !== "search"}
 		<div class="wx-back-item">
 			<div
 				class="wx-back"
-				data-id="/wx-filemanager-parent-link"
+				data-id={setID("/wx-filemanager-parent-link")}
 				class:wx-selected={item.navigation}
 			>
 				<i class="wxi-arrow-left"></i>
@@ -32,7 +33,7 @@
 	<div
 		class="wx-item"
 		class:wx-selected={selection?.length && selection.indexOf(item.id) >= 0}
-		data-id={item.id}
+		data-id={setID(item.id)}
 	>
 		{#if preview}
 			<div class="wx-preview wx-file-preview">
@@ -55,7 +56,7 @@
 					<span class="wx-type">{_("Folder")}</span>
 					<span class="wx-name">{item.name}</span>
 				</div>
-				<div data-action-id={item.id} class="wx-more">
+				<div data-action-id={setID(item.id)} class="wx-more">
 					<i class="wxi-dots-v"></i>
 				</div>
 			</div>
@@ -64,7 +65,7 @@
 				<div class="wx-file-name">
 					<span class="wx-name">{item.name}</span>
 				</div>
-				<div data-action-id={item.id} class="wx-more">
+				<div data-action-id={setID(item.id)} class="wx-more">
 					<i class="wxi-dots-v"></i>
 				</div>
 			</div>

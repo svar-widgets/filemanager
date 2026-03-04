@@ -12,7 +12,7 @@ export type TContextMenuType =
 	| "multiselect";
 
 export interface IMenuOption {
-	id?: string;
+	id?: string | number;
 	text?: string;
 	hotkey?: string;
 	icon?: string;

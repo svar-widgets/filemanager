@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import { delegateClick } from "@svar-ui/lib-dom";
+	import { delegateClick, setID } from "@svar-ui/lib-dom";
 	import Item from "./Item.svelte";
 
 	const api = getContext("filemanager-store");
@@ -109,7 +109,7 @@
 		tabindex="0"
 		class="wx-cards"
 		class:wx-has-back-link={path !== "/" && $mode !== "search"}
-		data-id={"body"}
+		data-id={setID("body")}
 		use:delegateClick={{ click, dblclick, context: applySelection }}
 	>
 		{#each renderedFiles as child}

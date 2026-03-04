@@ -31,7 +31,7 @@
 
 	function downloadFile() {
 		api.exec("download-file", {
-			id: items[0],
+			id: items[0].id,
 		});
 	}
 
@@ -382,7 +382,7 @@
 		box-shadow: var(--wx-fm-box-shadow);
 	}
 	.wx-no-info-wrapper {
-		height: calc(100% - var(--wx-fm-toolbar-height));
+		height: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
