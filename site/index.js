@@ -4,7 +4,8 @@ import { mount } from "svelte";
 mount(Demo, {
 	target: document.querySelector("#wx_demo_area") || document.body,
 	props: {
-		themeSelect: true,
+		publicName: "FileManager",
+		productLink: "filemanager",
 		border: true,
 	},
 });

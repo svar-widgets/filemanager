@@ -1,3 +1,9 @@
+## 2.5.0
+
+### Fixes
+
+-   Clipboard is cleared after copy and cut actions
+
 ## 2.4.2
 
 ### Fixes

@@ -102,15 +102,17 @@
 	}
 </script>
 
-<Filemanager
-	{init}
-	data={rawData}
-	{drive}
-	icons={iconsURL}
-	previews={previewURL}
-	extraInfo={requestInfo}
-	onrequestdata={loadData}
-/>
+<div class="area">
+	<Filemanager
+		{init}
+		data={rawData}
+		{drive}
+		icons={iconsURL}
+		previews={previewURL}
+		extraInfo={requestInfo}
+		onrequestdata={loadData}
+	/>
+</div>
 
 <style>
 	.area {

@@ -157,7 +157,6 @@
 								context?.type === "folder" ? context.id : path,
 						}
 					);
-					copy = null;
 				}
 				break;
 			case "rename":
