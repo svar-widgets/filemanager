@@ -21,7 +21,7 @@ export class DataStore extends Store<IData> {
 	public in: EventBus<TMethodsConfig, keyof TMethodsConfig>;
 	private _router: DataRouter<IData, IDataConfig, TMethodsConfig>;
 
-	constructor(w: TWritableCreator) {
+	constructor(w?: TWritableCreator) {
 		super({ writable: w, async: false });
 
 		const configs = [];
@@ -67,9 +67,11 @@ export class DataStore extends Store<IData> {
 				exec: (ctx: TDataConfig) => {
 					const { data, panels } = this.getState();
 
-					const selectedFiles = panels[i].selected.map((s: TID) =>
-						data.byId(s)
-					);
+					const selectedFiles: IParsedEntity[] = [];
+					panels[i].selected.forEach((s: TID) => {
+						const file = data.byId(s);
+						if (file) selectedFiles.push(file);
+					});
 					const { path, _sorts: sorts } = panels[i];
 					const sortedFiles = sort(selectedFiles, sorts[path]);
 

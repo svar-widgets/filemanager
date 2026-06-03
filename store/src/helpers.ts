@@ -1,15 +1,17 @@
 import type { IParsedEntity, TSort, TSortValue, TID } from "./types";
 
+const K = 1024;
 export function formatSize(size: number): string {
-	if (size < 1024) {
-		return `${size} b`;
-	} else if (size >= 1024 && size < 1000000) {
-		return `${(size / 1000).toFixed(1)} kb`;
-	} else if (size >= 1000000 && size < 1000000000) {
-		return `${(size / 1000000).toFixed(1)} Mb`;
-	} else if (size >= 1000000000) {
-		return `${(size / 1000000000).toFixed(1)} Gb`;
+	if (size < K) {
+		return `${size} B`;
 	}
+	if (size < K ** 2) {
+		return `${(size / K).toFixed(1)} KB`;
+	}
+	if (size < K ** 3) {
+		return `${(size / K ** 2).toFixed(1)} MB`;
+	}
+	return `${(size / K ** 3).toFixed(1)} GB`;
 }
 
 export function sort(data: IParsedEntity[], conf?: TSort) {

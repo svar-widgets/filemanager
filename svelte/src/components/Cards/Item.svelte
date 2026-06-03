@@ -14,6 +14,23 @@
 
 	let preview = $derived(templates.preview(item, 214, 163));
 	let icon = $derived(templates.icon(item, "big"));
+	let [nameStart, nameTail] = $derived(splitFileName(item.name));
+
+	function splitFileName(name) {
+		const MAX_TAIL_LENGTH = 10;
+		const NO_EXT_TAIL_LENGTH = 5;
+
+		const lastDotIndex = name.lastIndexOf(".");
+		const hasExtension = lastDotIndex > 0 && lastDotIndex < name.length - 1;
+		const tailLength = hasExtension
+			? Math.min(MAX_TAIL_LENGTH, name.length - lastDotIndex)
+			: Math.min(NO_EXT_TAIL_LENGTH, name.length);
+
+		const nameStart = name.slice(0, -tailLength);
+		const nameTail = name.slice(-tailLength);
+
+		return [nameStart, nameTail];
+	}
 </script>
 
 {#if item.id === "/wx-filemanager-parent-link"}
@@ -54,7 +71,9 @@
 			<div class="wx-info">
 				<div class="wx-folder-name">
 					<span class="wx-type">{_("Folder")}</span>
-					<span class="wx-name">{item.name}</span>
+					<span class="wx-name">
+						<span>{nameStart}</span><span>{nameTail}</span>
+					</span>
 				</div>
 				<div data-action-id={setID(item.id)} class="wx-more">
 					<i class="wxi-dots-v"></i>
@@ -63,7 +82,9 @@
 		{:else}
 			<div class="wx-info">
 				<div class="wx-file-name">
-					<span class="wx-name">{item.name}</span>
+					<span class="wx-name">
+						<span>{nameStart}</span><span>{nameTail}</span>
+					</span>
 				</div>
 				<div data-action-id={setID(item.id)} class="wx-more">
 					<i class="wxi-dots-v"></i>
@@ -158,12 +179,21 @@
 		text-overflow: ellipsis;
 	}
 	.wx-name {
-		display: inline-block;
+		display: flex;
+		min-width: 0;
 		font-size: 14px;
 		font-weight: var(--wx-font-weight-md);
 		overflow: hidden;
+	}
+	.wx-name > span:first-child {
+		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+		min-width: 0;
+	}
+	.wx-name > span:last-child {
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
 	.wx-back-item {
 		width: 100%;

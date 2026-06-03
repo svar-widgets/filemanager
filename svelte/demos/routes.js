@@ -7,6 +7,7 @@ import SimpleIcons from "./cases/SimpleIcons.svelte";
 import Locales from "./cases/Locales.svelte";
 import API from "./cases/API.svelte";
 import ExtraInfo from "./cases/ExtraInfo.svelte";
+import Tooltips from "./cases/Tooltips.svelte";
 import BackendData from "./cases/BackendData.svelte";
 import DataProvider from "./cases/DataProvider.svelte";
 import BackendFilter from "./cases/BackendFilter.svelte";
@@ -26,6 +27,7 @@ export const links = [
 	["/locales/:skin", "Locales", Locales, "Locales"],
 	["/api/:skin", "API calls", API, "API"],
 	["/extra-info/:skin", "Extra info", ExtraInfo, "ExtraInfo"],
+	["/tooltips/:skin", "Tooltips", Tooltips, "Tooltips"],
 	["/serverdata/:skin", "Backend data", BackendData, "BackendData"],
 	["/data-provider/:skin", "Saving to backend", DataProvider, "DataProvider"],
 	[

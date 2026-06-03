@@ -143,7 +143,7 @@
 	{#if items.length}
 		<div class="wx-preview">
 			<div class="wx-toolbar">
-				<div class="wx-name">{name}</div>
+				<div class="wx-name">{basic.name}</div>
 				<div class="wx-icons">
 					{#if basic.showDownloadIcon}
 						<Icon name="download" onclick={downloadFile} />
@@ -220,7 +220,7 @@
 	{:else}
 		<div class="wx-no-info-panel">
 			<div class="wx-toolbar">
-				<div class="wx-name">{name}</div>
+				<div class="wx-name">{basic.name}</div>
 				<div class="wx-icons">
 					{#if narrowMode}
 						<Icon name="close" onclick={closePreview} />

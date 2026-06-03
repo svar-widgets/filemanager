@@ -1,6 +1,6 @@
 {
 	"name": "@svar-ui/filemanager-store",
-	"version": "2.5.0",
+	"version": "2.6.0",
 	"type": "module",
 	"main": "dist/index.js",
 	"module": "dist/index.js",
@@ -18,6 +18,6 @@
 		"license.txt"
 	],
 	"dependencies": {
-		"@svar-ui/lib-state": "1.9.6"
+		"@svar-ui/lib-state": "1.9.7"
 	}
 }

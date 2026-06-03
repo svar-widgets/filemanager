@@ -1,5 +1,6 @@
-import type { Component } from "svelte";
+import type { Component, ComponentProps } from "svelte";
 import type { IMenuOption } from "@svar-ui/svelte-menu";
+import { Tooltip as BaseTooltip } from "@svar-ui/svelte-core";
 
 import type {
 	TMethodsConfig,
@@ -13,10 +14,10 @@ import type {
 export * from "@svar-ui/filemanager-store";
 
 export interface IFileMenuOption extends IMenuOption {
-	hotkey: string;
+	hotkey?: string;
 }
 
-export type FilePreview = IParsedEntity & {
+export type FilePreview = Partial<IParsedEntity> & {
 	type: "file" | "folder" | "search" | "multiple" | "none";
 };
 
@@ -26,11 +27,13 @@ export declare const Filemanager: Component<
 		menuOptions?: (
 			mode: TContextMenuType,
 			item?: IParsedEntity
-		) => IFileMenuOption[];
+		) => IFileMenuOption[] | false;
 		extraInfo?: (
 			file: IParsedEntity
 		) => Promise<IExtraInfo> | IExtraInfo | null;
-		icons?: (file: IParsedEntity, size: "big" | "small") => string;
+		icons?:
+			| ((file: FilePreview, size: "big" | "small") => string | false)
+			| "simple";
 		previews?: (
 			file: FilePreview,
 			width: number,
@@ -39,6 +42,21 @@ export declare const Filemanager: Component<
 		init?: (api: IApi) => void;
 	} & IConfig &
 		FilemanagerActions<TMethodsConfig>
+>;
+
+type TooltipContentData = {
+	file: IParsedEntity;
+};
+
+export declare const Tooltip: Component<
+	Omit<ComponentProps<typeof BaseTooltip>, "content"> & {
+		api?: IApi;
+		overflow?: boolean;
+		content?: Component<{
+			api: IApi;
+			data: TooltipContentData;
+		}>;
+	}
 >;
 
 export declare const Material: Component<{
