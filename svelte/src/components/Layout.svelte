@@ -14,7 +14,12 @@
 	import TableView from "./Table/View.svelte";
 	import CardsView from "./Cards/View.svelte";
 
-	let { readonly = false, menuOptions, extraInfo } = $props();
+	let {
+		readonly = false,
+		menuOptions,
+		extraInfo,
+		hideSidebar: hideSidebarProp = false,
+	} = $props();
 
 	let sidebarWidth = $state();
 
@@ -230,6 +235,7 @@
 								class:wx-sidebar-narrow={narrowMode}
 								class:wx-sidebar-visible={showSidebar}
 								bind:clientWidth={sidebarWidth}
+								hidden={hideSidebarProp}
 							>
 								<Sidebar {readonly} {menuOptions} />
 							</div>
